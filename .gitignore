@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+*.egg-info/
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg
+.env
+.venv
+venv/
+env/
+
+# Django stuff:
+*.log
+*.pot
+*.mo
+*.sqlite3
+db.sqlite3
+/media/ # User-uploaded files
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+*.kpf
+*.tmproj
+*.tmproject
+*.tmTheme
+*.tmLanguage
+*.tmSnippet
+*.swp
+*.swo
+*~
+.#*
+.#*#
+.DS_Store
+Thumbs.db
+
+# OS generated files
+.DS_Store
+.Trashes
+ehthumbs.db
+Icon?
+*.stackdump

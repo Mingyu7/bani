@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}오늘의 날씨 - 클린 보드{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">오늘의 날씨 정보</h2>
+<div class="card widget-card">
+    <div class="card-body">
+        <div id="weather-widget" class="d-flex align-items-center p-3">
+            <p class="mb-0">날씨 정보를 불러오는 중...</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/weather.js' %}"></script>
+{% endblock %}
