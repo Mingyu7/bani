@@ -15,3 +15,16 @@ python manage.py runserver
    * `map`: 지도 관련 기능을 담당할 앱입니다. (현재는 빈 페이지)
    * `market`: 중고 거래 기능을 담당할 앱입니다. (이전 trade 앱)
    * `dating`: 데이팅/매칭 기능을 담당할 앱입니다. (현재는 빈 페이지)
+
+-깃 연결
+ git remote add origin https://github.com/Mingyu7/bani.git
+ git clone https://github.com/Mingyu7/bani.git
+
+-브랜치 생성
+ git checkout -b 'name'
+-main 브랜치와 동기화
+ git pull origin main
+-Push
+ git add .
+ git commit -m 'message'
+ git push origin name
