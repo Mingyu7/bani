@@ -1,0 +1,90 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}바니바니{% endblock %}
+
+{% block content %}
+<h1 class="text-center my-4 display-3">Bani Bani</h1>
+<p class="text-center mb-5">우리 학교의 생활 커뮤니티</p>
+<!-- 위젯 섹션 -->
+<section class="widgets mb-5">
+    <div class="row">
+        <!-- 날씨 위젯 -->
+        <a href="{% url 'weather_page' %}" class="col-lg-4 col-md-6 mb-4 text-decoration-none text-dark">
+            <div class="card widget-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">오늘의 날씨</h5>
+                    <div id="weather-widget" class="d-flex align-items-center">
+                        <p class="mb-0">날씨 정보를 불러오는 중...</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- 지도 위젯 -->
+        <a href="{% url 'map:map_page' %}" class="col-lg-4 col-md-6 mb-4 text-decoration-none text-dark">
+            <div class="card widget-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">주변 지도</h5>
+                    <div id="map" style="height: 250px;"></div>
+                </div>
+            </div>
+        </a>
+
+        <!-- 오늘의 식단 위젯 -->
+        <a href="{% url 'meal_plan_page' %}" class="col-lg-4 col-md-6 mb-4 text-decoration-none text-dark">
+            <div class="card widget-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">오늘의 식단</h5>
+                    <div id="daily-meal-widget">
+                        {{ daily_meal | safe }}
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- 데이팅 매칭 위젯 -->
+        <a href="{% url 'dating:dating_page' %}" class="col-lg-4 col-md-6 mb-4 text-decoration-none text-dark">
+            <div class="card widget-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">데이팅 매칭</h5>
+                    <div id="matching-widget">
+                        <p class="mb-0">새로운 인연을 찾아보세요!</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- 게시판 위젯 -->
+        <a href="{% url 'board:post_list' %}" class="col-lg-4 col-md-6 mb-4 text-decoration-none text-dark">
+            <div class="card widget-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">게시판</h5>
+                    <div id="board-widget">
+                        <p class="mb-0">다양한 소식을 확인하세요.</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- 중고거래 위젯 -->
+        <a href="{% url 'market:market_page' %}" class="col-lg-4 col-md-6 mb-4 text-decoration-none text-dark">
+            <div class="card widget-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">중고거래</h5>
+                    <div id="sales-widget">
+                        <p>최신 중고 물품을 확인하세요.</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Kakao Map API -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_APP_KEY"></script>
+<script src="{% static 'js/map.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,51 @@
+<!-- 상단 내비게이션 바 -->
+<nav class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between w-100">
+            <div>
+                <a class="navbar-brand" href="{% url 'index' %}">BaniBani</a>
+            </div>
+            <div class="d-flex align-items-center">
+                <ul class="navbar-nav flex-row me-2">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light btn-sm" href="{% url 'logout' %}" role="button">로그아웃</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light btn-sm me-2" href="{% url 'login' %}" role="button">로그인</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-light btn-sm" href="{% url 'signup' %}" role="button">회원가입</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-end pe-3" href="{% url 'meal_plan_page' %}">오늘의 식단</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-end pe-3" href="{% url 'board:post_list' %}">게시판</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-end pe-3" href="{% url 'market:market_page' %}">중고거래</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-end pe-3" href="{% url 'dating:dating_page' %}">데이팅</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-end pe-3" href="{% url 'weather_page' %}">날씨</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-end pe-3" href="{% url 'map:map_page' %}">지도</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
