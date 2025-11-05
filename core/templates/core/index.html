@@ -33,60 +33,58 @@
             <div class="container">
                 <div class="text-center mb-5">
                     <h2 class="display-5 fw-bold" data-aos="fade-up">핵심 기능 둘러보기</h2>
-                    <p class="text-muted fs-5" data-aos="fade-up" data-aos-delay="100">Bani Bani가 제공하는 다채로운 기능들을 만나보세요.</p>
+                    <p class="fs-5" data-aos="fade-up" data-aos-delay="100">Bani Bani가 제공하는 다채로운 기능들을 만나보세요.</p>
                 </div>
 
-                <!-- Feature 1: Weather & Map -->
-                <div class="row align-items-center mb-5 pb-5 border-bottom">
-                    <div class="col-lg-6" data-aos="zoom-in-right">
-                        <div class="card widget-card-feature shadow-sm">
-                            <div class="card-body p-4">
-                                <h5 class="card-title fs-3">오늘의 날씨 & 주변 지도</h5>
-                                <p class="text-muted">캠퍼스의 실시간 날씨를 확인하고, 주변의 편의시설을 지도로 쉽게 찾아보세요.</p>
+                <div class="row">
+                    <!-- Feature 1: Weather & Map -->
+                    <div class="col-lg-3 mb-5">
+                        <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up">
+                            <div class="card-body p-5 d-flex flex-column">
+                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-cloud-sun me-3"></i>오늘의 날씨 & 지도</h5>
+                                <p>캠퍼스의 실시간 날씨를 확인하고, 주변의 편의시설을 지도로 쉽게 찾아보세요.</p>
                                 <div id="weather-widget" class="mb-3">날씨 정보 로딩 중...</div>
-                                <div id="map" style="height: 250px; border-radius: .25rem;"></div>
+                                <div id="map" class="mt-auto" style="height: 250px; border-radius: .25rem;"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
-                        <h3 class="fw-bold">하루의 시작과 끝, <br>더욱 편리하게.</h3>
-                        <p class="text-muted mt-3">등교 전 날씨를 확인하여 우산을 챙길지 결정하고, 수업이 끝난 후 친구와 만날 장소를 지도로 빠르게 찾아보세요. 당신의 하루를 더 계획적으로 만들어줍니다.</p>
-                    </div>
-                </div>
 
-                <!-- Feature 2: Meal Plan & Dating -->
-                <div class="row align-items-center mb-5 pb-5 border-bottom flex-row-reverse">
-                    <div class="col-lg-6" data-aos="zoom-in-left">
-                        <div class="card widget-card-feature shadow-sm">
-                            <div class="card-body p-4">
-                                <h5 class="card-title fs-3">오늘의 식단 & 데이팅</h5>
-                                <p class="text-muted">학식 메뉴를 미리 확인하고, 새로운 친구와 함께 식사 약속을 잡아보세요.</p>
+                    <!-- Feature 2: Meal Plan & Dating -->
+                    <div class="col-lg-3 mb-5">
+                        <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up" data-aos-delay="100">
+                            <div class="card-body p-5 d-flex flex-column">
+                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-card-checklist me-3"></i>오늘의 식단 & 데이팅</h5>
+                                <p>학식 메뉴를 미리 확인하고, 새로운 친구와 함께 식사 약속을 잡아보세요.</p>
                                 <div id="daily-meal-widget" class="mb-3">{{ daily_meal | safe }}</div>
-                                <a href="{% url 'dating:dating_page' %}" class="btn btn-primary">새로운 인연 찾기</a>
+                                <a href="{% url 'dating:dating_page' %}" class="btn btn-primary mt-auto">새로운 인연 찾기</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 pe-lg-5" data-aos="fade-right">
-                        <h3 class="fw-bold">맛있는 식사와 <br>설레는 만남.</h3>
-                        <p class="text-muted mt-3">오늘은 뭘 먹을지 고민하지 마세요. 식단표를 확인하고, Bani Bani의 데이팅 기능을 통해 새로운 사람들과 즐거운 식사 시간을 가져보세요.</p>
-                    </div>
-                </div>
-                
-                <!-- Feature 3: Board & Market -->
-                <div class="row align-items-center">
-                    <div class="col-lg-6" data-aos="zoom-in-right">
-                        <div class="card widget-card-feature shadow-sm">
-                            <div class="card-body p-4">
-                                <h5 class="card-title fs-3">게시판 & 중고거래</h5>
-                                <p class="text-muted">다양한 학내 소식을 접하고, 필요한 물건을 저렴하게 거래하세요.</p>
-                                <a href="{% url 'board:post_list' %}" class="btn btn-secondary mb-2 w-100">게시판 바로가기</a>
-                                <a href="{% url 'market:market_page' %}" class="btn btn-info w-100 text-white">중고거래 바로가기</a>
+
+                    <!-- Feature 3: Board -->
+                    <div class="col-lg-3 mb-5">
+                        <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up" data-aos-delay="200">
+                            <div class="card-body p-5 d-flex flex-column">
+                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-clipboard-data me-3"></i>게시판</h5>
+                                <p>다양한 학내 소식을 접하고 정보를 공유하세요.</p>
+                                <div class="mt-auto">
+                                    <a href="{% url 'board:post_list' %}" class="btn btn-primary w-100">게시판 바로가기</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
-                        <h3 class="fw-bold">정보 공유와 <br>합리적인 소비.</h3>
-                        <p class="text-muted mt-3">놓치기 쉬운 학내 공지사항부터 유용한 꿀팁까지, 게시판에서 모든 정보를 얻고, 중고거래 장터에서 필요한 물건을 찾아보며 현명한 소비를 경험하세요.</p>
+
+                    <!-- Feature 4: Market -->
+                    <div class="col-lg-3 mb-5">
+                        <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up" data-aos-delay="300">
+                            <div class="card-body p-5 d-flex flex-column">
+                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-shop me-3"></i>중고거래</h5>
+                                <p>필요한 물건을 저렴하게 거래하고 현명한 소비를 경험하세요.</p>
+                                <div class="mt-auto">
+                                    <a href="{% url 'market:market_page' %}" class="btn btn-primary w-100">중고거래 바로가기</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,8 +98,8 @@
                 {% if user.is_authenticated %}
                     <a href="{% url 'board:post_list' %}" class="btn btn-primary btn-lg">게시판으로 이동</a>
                 {% else %}
-                    <a href="{% url 'signup' %}" class="btn btn-primary btn-lg me-2">회원가입</a>
-                    <a href="{% url 'login' %}" class="btn btn-secondary btn-lg">로그인</a>
+                    <a href="{% url 'signup' %}" class="btn btn-primary btn-lg">회원가입</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-light">로그인</a>
                 {% endif %}
             </div>
         </section>

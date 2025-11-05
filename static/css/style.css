@@ -5,7 +5,7 @@
 /* 1. Font, Body, and Basic Setup */
 body {
     font-family: 'Poppins', 'Noto Sans KR', sans-serif;
-    color: #5a5c69;
+    color: #f8f9fa; /* Using a light gray instead of pure white for better aesthetics */
 }
 
 :root {
@@ -35,21 +35,23 @@ body {
 
 /* 3. Navbar & Footer */
 .navbar {
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    position: relative; /* Needed for z-index */
+    z-index: 1060; /* Higher than the dropdown */
+    background-color: rgba(52, 58, 64, 0.7) !important; /* Dark translucent */
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 .navbar-dark .navbar-brand,
 .navbar-dark .navbar-nav .nav-link {
-    color: var(--charcoal) !important;
+    color: white !important; /* White text */
 }
 .navbar .btn-outline-light {
-    border-color: var(--charcoal);
-    color: var(--charcoal);
+    border-color: white; /* White border */
+    color: white; /* White text */
 }
 .navbar .btn-outline-light:hover {
-    background-color: var(--charcoal);
-    color: white;
+    background-color: white;
+    color: var(--charcoal); /* Dark text on hover */
 }
 .navbar .btn-light {
     background-color: var(--primary-color);
@@ -61,14 +63,35 @@ body {
 }
 
 .footer {
-    margin: 5rem auto;
-    padding: 2rem;
-    width: 90%;
-    max-width: 1140px; /* Match container max-width */
-    border-radius: 0.5rem;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
-    background-color: var(--charcoal) !important;
-    color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    max-width: none;
+    border-radius: 0; /* Remove rounded corners for full-width */
+    background-color: white !important;
+    color: var(--charcoal) !important;
+    padding: 3rem 0; /* Adjust padding */
+    margin-top: 10rem; /* Keep margin-top for spacing */
+    box-shadow: 0 -0.25rem 0.5rem rgba(0,0,0,0.1);
+}
+
+.footer h5 {
+    color: var(--charcoal) !important;
+    font-weight: bold !important;
+}
+
+.footer p, .footer li {
+    color: #5a5c69 !important; /* A slightly lighter gray for body text */
+}
+
+.footer a {
+    color: black !important; /* Black links */
+}
+
+.footer a:hover {
+    text-decoration: underline !important;
+}
+
+.footer hr {
+    border-color: rgba(0,0,0,0.1) !important;
 }
 
 /* 4. Hero Section */
@@ -102,41 +125,103 @@ body {
 }
 
 .features-section, .cta-section {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5rem;
-    width: 90%;
-    max-width: 1140px; /* Match container max-width */
-    padding-top: 5rem; padding-bottom: 5rem;
+    margin-top: 10rem;
+    width: 100%;
+    padding-top: 8rem; padding-bottom: 8rem; /* Increased padding */
     border-radius: 0.5rem;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    /* box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15); */ /* Removed shadow */
 }
 
 .features-section {
-    background-color: var(--light-gray);
+    background-color: rgba(52, 58, 64, 0.7);
+}
+
+.features-section h2,
+.features-section p {
+    color: white;
 }
 
 .cta-section {
-    background-color: #FDF5E6; /* Ivory */
-    color: var(--charcoal);
+    background-color: transparent;
+    color: white;
 }
 
 .cta-section h2, .cta-section p {
-    color: var(--charcoal);
+    color: white;
 }
 
 .cta-section .text-muted {
-    color: #6c757d !important;
+    color: rgba(255, 255, 255, 0.7) !important;
 }
 
 /* 6. General Element Styling */
 .widget-card-feature {
     border: none;
     border-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.widget-card-feature:hover {
+    transform: translateY(-5px); /* Lift card slightly */
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.25) !important; /* More prominent shadow */
+}
+
+.widget-card-feature .card-title {
+    color: white;
+}
+
+.widget-card-feature p {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 #map {
     width: 100%;
     height: 250px;
     border-radius: 0.3rem;
+}
+
+/* Custom Navbar Dropdown */
+#navbarNav {
+    /* Override Bootstrap's default display behavior */
+    display: block !important;
+    visibility: hidden;
+    height: auto !important;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease-in-out, visibility 0s 0.3s;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: var(--charcoal);
+    padding: 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    z-index: 1055; /* Ensure it's on top */
+}
+
+#navbarNav.show {
+    visibility: visible;
+    transform: scaleX(1);
+    transition: transform 0.3s ease-in-out;
+}
+
+#navbarNav .nav-link {
+    display: inline-block !important;
+    /* background-color: var(--primary-color); */ /* Removed background */
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    margin: 0.25rem 0;
+    color: white !important;
+    width: auto;
+    position: relative; /* Needed for pseudo-element positioning */
+    padding-left: 2rem; /* Make space for the dot */
+}
+
+#navbarNav .nav-link::before {
+    content: '•';
+    position: absolute;
+    left: 0.75rem;
+    color: var(--primary-color); /* Use the primary color for the dot */
+    font-size: 1.2em;
+    line-height: 1;
 }
