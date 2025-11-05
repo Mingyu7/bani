@@ -1,12 +1,10 @@
 /* =================================================================
-   Main Stylesheet for Parallax & Animated Landing Page
+   Main Stylesheet for Parallax & Animated Landing Page (Floating Blocks)
    ================================================================= */
 
-/* 1. Font, Body, and Basic Setup
------------------------------------------------------------------ */
+/* 1. Font, Body, and Basic Setup */
 body {
     font-family: 'Poppins', 'Noto Sans KR', sans-serif;
-    background-color: #fff; /* Start with a clean white background */
     color: #5a5c69;
 }
 
@@ -17,19 +15,30 @@ body {
     --light-gray: #f8f9fa;
 }
 
-/* Remove container's default margin-top for the new layout */
-.container {
-    margin-top: 0 !important;
+/* 2. New Site Structure */
+.site-background {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    z-index: 0;
 }
 
-/* 2. Navbar & Footer
------------------------------------------------------------------ */
+.hero-parallax-background {
+    width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    filter: brightness(0.5);
+}
+
+.site-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* 3. Navbar & Footer */
 .navbar {
     background-color: rgba(255, 255, 255, 0.9) !important;
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-/* Since navbar is light, we need light-theme text */
 .navbar-dark .navbar-brand,
 .navbar-dark .navbar-nav .nav-link {
     color: var(--charcoal) !important;
@@ -51,112 +60,81 @@ body {
     background-color: var(--primary-hover);
 }
 
-
 .footer {
+    margin: 5rem auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 1140px; /* Match container max-width */
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
     background-color: var(--charcoal) !important;
     color: rgba(255, 255, 255, 0.8);
 }
 
-
-/* 3. Parallax Hero Section
------------------------------------------------------------------ */
+/* 4. Hero Section */
 .hero-parallax {
     position: relative;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
     color: white;
-}
-
-.hero-parallax-background {
-    position: fixed; /* Changed for a simpler, more reliable parallax */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-    filter: brightness(0.5);
 }
 
 .hero-content {
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-/* The main wrapper is no longer a 3D context, simplifying the CSS */
-.main-wrapper {
-    position: relative;
-    z-index: 1;
-    background-color: #fff; /* Content sections need a background */
+/* 5. Content Sections */
+.content-wrapper {
+    /* No background, so parallax image can be seen in the gaps */
 }
 
-
-/* 4. Content Sections
------------------------------------------------------------------ */
 .intro-section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-    background-color: transparent; /* Make it see-through */
+    padding-top: 5rem; padding-bottom: 5rem;
+    background-color: transparent;
 }
 
 .intro-section h2,
 .intro-section p {
-    color: white; /* Make text white */
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Add shadow for readability */
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .features-section, .cta-section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+    width: 90%;
+    max-width: 1140px; /* Match container max-width */
+    padding-top: 5rem; padding-bottom: 5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
 }
 
 .features-section {
     background-color: var(--light-gray);
 }
 
+.cta-section {
+    background-color: #FDF5E6; /* Ivory */
+    color: var(--charcoal);
+}
+
+.cta-section h2, .cta-section p {
+    color: var(--charcoal);
+}
+
+.cta-section .text-muted {
+    color: #6c757d !important;
+}
+
+/* 6. General Element Styling */
 .widget-card-feature {
     border: none;
     border-radius: 0.5rem;
 }
 
-.cta-section {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.cta-section h2, .cta-section p {
-    color: white;
-}
-
-.cta-section .text-muted {
-    color: rgba(255, 255, 255, 0.8) !important;
-}
-
-/* 5. General Element Styling
------------------------------------------------------------------ */
-.btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-.btn-primary:hover {
-    background-color: var(--primary-hover);
-    border-color: var(--primary-hover);
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-.btn-info {
-    background-color: #17a2b8;
-    border-color: #17a2b8;
-}
-
-/* Ensure map and other widgets look good in the new layout */
 #map {
     width: 100%;
     height: 250px;
