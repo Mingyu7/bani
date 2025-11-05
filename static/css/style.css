@@ -1,112 +1,164 @@
-/* Custom CSS for CleanBoard */
+/* =================================================================
+   Main Stylesheet for Parallax & Animated Landing Page
+   ================================================================= */
+
+/* 1. Font, Body, and Basic Setup
+----------------------------------------------------------------- */
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: black; /* 전체 배경을 검정으로 */
-    color: white; /* 기본 글자색을 흰색으로 */
+    font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+    background-color: #fff; /* Start with a clean white background */
+    color: #5a5c69;
 }
 
-.widget-card .card-body {
+:root {
+    --primary-color: #4e73df;
+    --primary-hover: #2e59d9;
+    --charcoal: #343a40;
+    --light-gray: #f8f9fa;
+}
+
+/* Remove container's default margin-top for the new layout */
+.container {
+    margin-top: 0 !important;
+}
+
+/* 2. Navbar & Footer
+----------------------------------------------------------------- */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+/* Since navbar is light, we need light-theme text */
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--charcoal) !important;
+}
+.navbar .btn-outline-light {
+    border-color: var(--charcoal);
+    color: var(--charcoal);
+}
+.navbar .btn-outline-light:hover {
+    background-color: var(--charcoal);
+    color: white;
+}
+.navbar .btn-light {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+.navbar .btn-light:hover {
+    background-color: var(--primary-hover);
+}
+
+
+.footer {
+    background-color: var(--charcoal) !important;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+/* 3. Parallax Hero Section
+----------------------------------------------------------------- */
+.hero-parallax {
+    position: relative;
+    height: 100vh; /* Full viewport height */
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white;
 }
 
-.widget-card .card-title {
-    margin-bottom: 1.5rem;
+.hero-parallax-background {
+    position: fixed; /* Changed for a simpler, more reliable parallax */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    filter: brightness(0.5);
 }
 
+.hero-content {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* The main wrapper is no longer a 3D context, simplifying the CSS */
+.main-wrapper {
+    position: relative;
+    z-index: 1;
+    background-color: #fff; /* Content sections need a background */
+}
+
+
+/* 4. Content Sections
+----------------------------------------------------------------- */
+.intro-section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    background-color: transparent; /* Make it see-through */
+}
+
+.intro-section h2,
+.intro-section p {
+    color: white; /* Make text white */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Add shadow for readability */
+}
+
+.features-section, .cta-section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.features-section {
+    background-color: var(--light-gray);
+}
+
+.widget-card-feature {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.cta-section {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.cta-section h2, .cta-section p {
+    color: white;
+}
+
+.cta-section .text-muted {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* 5. General Element Styling
+----------------------------------------------------------------- */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+/* Ensure map and other widgets look good in the new layout */
 #map {
     width: 100%;
-    height: 250px; /* 위젯 높이에 맞게 조정 */
+    height: 250px;
+    border-radius: 0.3rem;
 }
-
-/* 카드 (위젯) 배경을 그레이톤으로, 글자색은 흰색으로 */
-.card {
-    background-color: #343a40; /* 어두운 그레이톤 */
-    color: white; /* 카드 내부 글자색을 흰색으로 */
-    border-color: #495057; /* 테두리 색상 조정 */
-}
-
-/* 위젯 카드에 마우스 오버 효과 추가 */
-.widget-card {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    cursor: pointer;
-}
-
-.widget-card:hover {
-    transform: translateY(-5px); /* 살짝 위로 떠오르는 효과 */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-}
-
-/* 카드 내부 링크 색상 조정 */
-.card a {
-    color: #adb5bd; /* 밝은 회색 링크 */
-}
-
-/* 게시판 위젯 내 목록 항목 배경 투명하게 */
-.card .list-group-item {
-    background-color: transparent;
-    color: white;
-    border-color: #495057; /* 테두리 색상 조정 */
-}
-
-.card .list-group-item a {
-    color: white; /* 목록 항목 내 링크 글자색도 흰색으로 */
-}
-
-/* 특정 링크 클래스 오버라이드 제거 */
-a.text-dark {
-    color: white !important; /* 흰색 배경에 검정 글씨가 아닌, 어두운 배경에 흰색 글씨로 */
-}
-
-/* 상단 네비게이션 바와 하단 푸터 배경색을 순수 검정으로 통일 */
-.navbar.bg-dark,
-.footer.bg-dark {
-    background-color: black !important;
-}
-
-/* 네비게이션 바 하단에 얇은 구분선 추가 */
-.navbar {
-    border-bottom: 1px solid #adb5bd; /* 얇은 밝은 회색 선 */
-}
-
-/* 폼 요소 스타일 */
-label {
-    color: white;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="number"],
-textarea,
-select {
-    background-color: #495057; /* 어두운 그레이 배경 */
-    color: white; /* 흰색 글자 */
-    border: 1px solid #6c757d; /* 밝은 그레이 테두리 */
-}
-
-input[type="text"]::placeholder,
-input[type="password"]::placeholder,
-input[type="email"]::placeholder,
-input[type="number"]::placeholder,
-textarea::placeholder {
-    color: #adb5bd; /* 플레이스홀더 글자색 */
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus,
-input[type="number"]:focus,
-textarea:focus,
-select:focus {
-    background-color: #6c757d; /* 포커스 시 배경색 변경 */
-    border-color: #86b7fe; /* 포커스 시 테두리 색상 변경 (부트스트랩 기본) */
-    color: white;
-}
-
-button[type="submit"] {
-    background-color: black;
-    color: white;
-    border-color: white;
-}
-
