@@ -37,26 +37,26 @@
                 </div>
 
                 <div class="row">
-                    <!-- Feature 1: Weather & Map -->
+                    <!-- Feature 1: Weather -->
                     <div class="col-lg-3 mb-5">
                         <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up">
                             <div class="card-body p-5 d-flex flex-column">
-                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-cloud-sun me-3"></i>오늘의 날씨 & 지도</h5>
-                                <p>캠퍼스의 실시간 날씨를 확인하고, 주변의 편의시설을 지도로 쉽게 찾아보세요.</p>
+                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-cloud-sun me-3"></i>오늘의 날씨</h5>
+                                <p>캠퍼스의 실시간 날씨를 확인하세요.</p>
                                 <div id="weather-widget" class="mb-3">날씨 정보 로딩 중...</div>
-                                <div id="map" class="mt-auto" style="height: 250px; border-radius: .25rem;"></div>
+                                <a href="{% url 'weather:weather_page' %}" class="btn btn-primary mt-auto">날씨 바로가기</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Feature 2: Meal Plan & Dating -->
+                    <!-- Feature 2: Meal Plan -->
                     <div class="col-lg-3 mb-5">
                         <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up" data-aos-delay="100">
                             <div class="card-body p-5 d-flex flex-column">
-                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-card-checklist me-3"></i>오늘의 식단 & 데이팅</h5>
-                                <p>학식 메뉴를 미리 확인하고, 새로운 친구와 함께 식사 약속을 잡아보세요.</p>
+                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-card-checklist me-3"></i>오늘의 식단</h5>
+                                <p>학식 메뉴를 미리 확인하세요.</p>
                                 <div id="daily-meal-widget" class="mb-3">{{ daily_meal | safe }}</div>
-                                <a href="{% url 'dating:dating_page' %}" class="btn btn-primary mt-auto">새로운 인연 찾기</a>
+                                <a href="{% url 'meal_plans:meal_plan_page' %}" class="btn btn-primary mt-auto">식단 바로가기</a>
                             </div>
                         </div>
                     </div>
@@ -86,6 +86,28 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Feature 5: Dating -->
+                    <div class="col-lg-3 mb-5">
+                        <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up" data-aos-delay="400">
+                            <div class="card-body p-5 d-flex flex-column">
+                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-heart me-3"></i>데이팅</h5>
+                                <p>새로운 친구와 함께 식사 약속을 잡아보세요.</p>
+                                <a href="{% url 'dating:dating_page' %}" class="btn btn-primary mt-auto">새로운 인연 찾기</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 6: News -->
+                    <div class="col-lg-3 mb-5">
+                        <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up" data-aos-delay="500">
+                            <div class="card-body p-5 d-flex flex-column">
+                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-newspaper me-3"></i>뉴스</h5>
+                                <p>학교와 관련된 최신 뉴스를 확인하세요.</p>
+                                <a href="{% url 'news:news_page' %}" class="btn btn-primary mt-auto">뉴스 바로가기</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -98,7 +120,7 @@
                 {% if user.is_authenticated %}
                     <a href="{% url 'board:post_list' %}" class="btn btn-primary btn-lg">게시판으로 이동</a>
                 {% else %}
-                    <a href="{% url 'signup' %}" class="btn btn-primary btn-lg">회원가입</a>
+                    <a href="{% url 'users:signup' %}" class="btn btn-primary btn-lg">회원가입</a>
                     <a href="{% url 'login' %}" class="btn btn-outline-light">로그인</a>
                 {% endif %}
             </div>

@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     'meal_plans',
     'users',
     'board',
-    'map',
     'market',
     'dating',
+    'news',
 ]
 
 MIDDLEWARE = [

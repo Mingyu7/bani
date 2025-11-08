@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from .models import Product
 
 def market_page(request):
-    return render(request, 'market/market_page.html')
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request, 'market/market_page.html', context)
