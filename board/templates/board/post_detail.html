@@ -1,0 +1,25 @@
+{% extends 'core/base_app.html' %}
+
+{% block title %}{{ post.title }} - Board{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h1>{{ post.title }}</h1>
+            <div class="d-flex justify-content-between">
+                <span>By {{ post.user.username }}</span>
+                <span>{{ post.created_at|date:"Y-m-d H:i" }}</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <p>{{ post.content|linebreaksbr }}</p>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'board:post_list' %}" class="btn btn-secondary">Back to List</a>
+            {% if user == post.user %}
+                <a href="{% url 'board:post_update' post.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'board:post_delete' post.pk %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

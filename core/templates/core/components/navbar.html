@@ -16,7 +16,7 @@
                             <a class="btn btn-outline-light btn-sm me-2" href="{% url 'login' %}" role="button">로그인</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-light btn-sm" href="{% url 'signup' %}" role="button">회원가입</a>
+                            <a class="btn btn-light btn-sm" href="{% url 'users:signup' %}" role="button">회원가입</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-end pe-3" href="{% url 'meal_plan_page' %}">오늘의 식단</a>
+                    <a class="nav-link text-end pe-3" href="{% url 'meal_plans:meal_plan_page' %}">오늘의 식단</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-end pe-3" href="{% url 'board:post_list' %}">게시판</a>
@@ -40,12 +40,11 @@
                     <a class="nav-link text-end pe-3" href="{% url 'dating:dating_page' %}">데이팅</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-end pe-3" href="{% url 'news:news_page' %}">뉴스</a>
+                    <a class="nav-link text-end pe-3" href="{% url 'weather:weather_page' %}">날씨</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-end pe-3" href="{% url 'weather_page' %}">날씨</a>
+                    <a class="nav-link text-end pe-3" href="{% url 'news:news_page' %}">뉴스</a>
                 </li>
-
             </ul>
         </div>
     </div>

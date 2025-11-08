@@ -2,6 +2,10 @@
    Main Stylesheet for Parallax & Animated Landing Page (Floating Blocks)
    ================================================================= */
 
+.site-content .container {
+    color: var(--charcoal); /* Dark text for content within apps */
+}
+
 /* 1. Font, Body, and Basic Setup */
 body {
     font-family: 'Poppins', 'Noto Sans KR', sans-serif;
