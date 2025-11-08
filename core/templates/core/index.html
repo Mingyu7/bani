@@ -37,14 +37,16 @@
                 </div>
 
                 <div class="row">
-                    <!-- Feature 1: Weather & Map -->
+                    <!-- Feature 1: Weather & News -->
                     <div class="col-lg-3 mb-5">
                         <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up">
                             <div class="card-body p-5 d-flex flex-column">
-                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-cloud-sun me-3"></i>오늘의 날씨 & 지도</h5>
-                                <p>캠퍼스의 실시간 날씨를 확인하고, 주변의 편의시설을 지도로 쉽게 찾아보세요.</p>
+                                <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-cloud-sun me-3"></i>오늘의 날씨 & 뉴스</h5>
+                                <p>캠퍼스의 실시간 날씨와 최신 뉴스를 확인해보세요.</p>
                                 <div id="weather-widget" class="mb-3">날씨 정보 로딩 중...</div>
-                                <div id="map" class="mt-auto" style="height: 250px; border-radius: .25rem;"></div>
+                                <div class="mt-auto">
+                                    <a href="{% url 'news:news_page' %}" class="btn btn-primary w-100">뉴스 바로가기</a>
+                                </div>
                             </div>
                         </div>
                     </div>
