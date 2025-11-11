@@ -8,8 +8,14 @@
             <div class="d-flex align-items-center">
                 <ul class="navbar-nav flex-row me-2">
                     {% if user.is_authenticated %}
+                        <li class="nav-item d-flex align-items-center me-2">
+                            <span class="navbar-text text-light">환영합니다, {{ user.nickname }}님!</span>
+                        </li>
                         <li class="nav-item">
-                            <a class="btn btn-outline-light btn-sm" href="{% url 'logout' %}" role="button">로그아웃</a>
+                            <form action="{% url 'logout' %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-light btn-sm">로그아웃</button>
+                            </form>
                         </li>
                     {% else %}
                         <li class="nav-item">
