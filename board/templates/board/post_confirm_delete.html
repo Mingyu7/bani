@@ -1,13 +1,22 @@
 {% extends 'core/base_app.html' %}
 
-{% block title %}Confirm Delete - Board{% endblock %}
+{% block title %}삭제 확인{% endblock %}
 
-{% block content %}
-    <h2>Are you sure you want to delete "{{ object.title }}"?</h2>
-    <form method="post">
-        {% csrf_token %}
-        <p>This action cannot be undone.</p>
-        <button type="submit" class="btn btn-danger">Delete</button>
-        <a href="{% url 'board:post_detail' object.pk %}" class="btn btn-secondary">Cancel</a>
-    </form>
+{% block app_content %}
+    <div class="card">
+        <div class="card-header">
+            <h2>삭제 확인</h2>
+        </div>
+        <div class="card-body">
+            <p>정말로 <strong>"{{ object.title }}"</strong> 글을 삭제하시겠습니까?</p>
+            <p class="text-danger">이 작업은 되돌릴 수 없습니다.</p>
+        </div>
+        <div class="card-footer">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">삭제</button>
+                <a href="{% url 'board:post_detail' object.pk %}" class="btn btn-secondary">취소</a>
+            </form>
+        </div>
+    </div>
 {% endblock %}
