@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block site_background %}
+    <div class="hero-parallax-background" style="background-image: url('https://i.pinimg.com/1200x/52/bb/52/52bb521e2f8b6c590158c5216814ad5b.jpg');"></div>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div style="background-color: rgba(33, 37, 41, 0.8); border-radius: 15px; padding: 3rem;">
+        <!-- Header -->
+        <div class="text-center mb-5 text-white" data-aos="fade-down">
+            <h1 class="display-4 fw-bold">중고거래</h1>
+            <p class="fs-5" style="color: rgba(255, 255, 255, 0.8);">캠퍼스의 따뜻한 거래 공간, 지금 바로 시작해보세요.</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-end mb-4" data-aos="fade-down" data-aos-delay="100">
+            <a href="#" class="btn btn-light me-2">
+                <i class="bi bi-pencil-square me-1"></i> 상품 등록
+            </a>
+            <a href="#" class="btn btn-outline-light me-2">
+                <i class="bi bi-person-circle me-1"></i> 마이페이지
+            </a>
+            <a href="#" class="btn btn-outline-light">
+                <i class="bi bi-chat-dots me-1"></i> 채팅
+            </a>
+        </div>
+        
+        <!-- Product Grid -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            {% for i in "1234567891011121314" %}
+            <div class="col" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+                <div class="card h-100 shadow-sm border-0 widget-card-feature">
+                    <img src="https://picsum.photos/id/{{ forloop.counter | add:10 }}/300/200" class="card-img-top" alt="상품 이미지">
+                    <div class="card-body">
+                        <h5 class="card-title">샘플 상품 {{ i }}</h5>
+                        <p class="card-text">2분 전</p>
+                        <p class="card-text fw-bold">25,000원</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
