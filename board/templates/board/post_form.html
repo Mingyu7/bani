@@ -4,11 +4,12 @@
 {% block title %}{% if object %}글 수정{% else %}새 글 작성{% endif %}{% endblock %}
 
 {% block app_content %}
-    <h2>{% if object %}글 수정{% else %}새 글 작성{% endif %}</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary mt-3">저장</button>
-        <a href="{% if object %}{% url 'board:post_detail' object.pk %}{% else %}{% url 'board:post_list' %}{% endif %}" class="btn btn-secondary mt-3">취소</a>
-    </form>
+<h2>{% if object %}글 수정{% else %}새 글 작성{% endif %}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary mt-3">저장</button>
+    <a href="{% if object %}{% url 'board:post_detail' object.pk %}{% else %}{% url 'board:post_list' %}{% endif %}"
+       class="btn btn-secondary mt-3">취소</a>
+</form>
 {% endblock %}
