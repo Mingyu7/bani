@@ -5,6 +5,9 @@ python.exe -m pip install --upgrade pip
 3. run
 python manage.py runserver
 
+-마이그레이션 하기
+python manage.py migrate
+
 폴더 구조
    * `bani_project`: 웹사이트의 기본 설정파일.
    * `core`: 웹사이트의 기본 구조와 메인 페이지를 담당하는 핵심 앱입니다.

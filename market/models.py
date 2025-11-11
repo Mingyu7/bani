@@ -7,6 +7,8 @@ class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products')  # 판매자 (FK)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='products')  # 카테고리 (FK)
     title = models.CharField(max_length=200)  # 제목
+    image = models.ImageField(upload_to='product_images/', null=True, blank=True)  # 상품 이미지
+    location = models.CharField(max_length=100)  # 거래 지역
     description = models.TextField(blank=True, null=True)  # 설명
     price = models.IntegerField()  # 가격
     status = models.CharField(max_length=20, default='sale')  # 상태 ('sale', 'reserved', 'sold')

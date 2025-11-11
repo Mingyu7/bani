@@ -1,17 +1,43 @@
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
+class User(AbstractUser):
+    # AbstractUser provides: username, first_name, last_name, email,
+    # is_staff, is_active, date_joined, etc.
 
-class User(models.Model):
-    id = models.AutoField(primary_key=True)  # 사용자 PK
-    username = models.CharField(max_length=100, unique=True)  # 로그인 아이디
-    password = models.CharField(max_length=255)  # 비밀번호
-    email = models.EmailField(unique=True)  # 이메일
-    nickname = models.CharField(max_length=100, unique=True)  # 닉네임 (고유)
-    gender = models.CharField(max_length=1, blank=True, null=True)  # 성별 필드
-    region = models.CharField(max_length=100, blank=True, null=True)  # 지역
-    rating = models.FloatField(default=0.0)  # 평점
-    profile_image = models.CharField(max_length=255, blank=True, null=True)  # 프로필 이미지 경로
-    created_at = models.DateTimeField(auto_now_add=True)  # 가입일시
+    # We override the email field to make it unique and mandatory for our system.
+    email = models.EmailField(unique=True, blank=False)
+    nickname = models.CharField(max_length=100, unique=True)
+    gender = models.CharField(max_length=1, blank=True, null=True)
+    region = models.CharField(max_length=100, blank=True, null=True)
+    rating = models.FloatField(default=0.0)
+    profile_image = models.CharField(max_length=255, blank=True, null=True)
+
+    # Resolve reverse accessor clashes with the default User model
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name=_("groups"),
+        blank=True,
+        help_text=_(
+            "The groups this user belongs to. A user will get all permissions "
+            "granted to each of their groups."
+        ),
+        related_name="user_custom_set",  # Unique related_name
+        related_query_name="user",
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        verbose_name=_("user permissions"),
+        blank=True,
+        help_text=_("Specific permissions for this user."),
+        related_name="user_custom_permissions_set",  # Unique related_name
+        related_query_name="user",
+    )
+
+    # When creating a user via createsuperuser, these fields will be prompted.
+    # 'username' and 'password' are required by default.
+    REQUIRED_FIELDS = ['email', 'nickname']
 
     def __str__(self):
         return self.nickname

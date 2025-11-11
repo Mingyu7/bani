@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/', include('users.urls')),
+    path('users/', include('users.urls')),
     path('', include('core.urls')),
     path('weather/', include('weather.urls')),
     path('meal-plan/', include('meal_plans.urls')),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('market/', include('market.urls')),
     path('dating/', include('dating.urls')),
     path('news/', include('news.urls')),
+    path('trade/', include('trade.urls')),
 ]
 
 if settings.DEBUG:

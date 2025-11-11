@@ -229,3 +229,104 @@ body {
     font-size: 1.2em;
     line-height: 1;
 }
+
+/* =================================================================
+   7. Authentication Pages (Login/Signup)
+   ================================================================= */
+
+.auth-container {
+    max-width: 500px;
+    margin: 5rem auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+    color: var(--charcoal);
+    text-align: center;
+}
+
+.auth-container h2 {
+    color: var(--charcoal);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.auth-container label {
+    color: var(--charcoal);
+    font-weight: 500;
+    display: block;
+    text-align: left;
+}
+
+.auth-container .form-control {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    color: var(--charcoal);
+}
+
+.auth-container .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 600;
+    padding: 0.75rem;
+    width: 100%;
+    color: white;
+}
+
+.auth-container .btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    color: white;
+}
+
+.auth-container .btn-outline-secondary {
+    color: var(--charcoal);
+    border-color: #ced4da;
+    background-color: #fff;
+}
+
+.auth-container .btn-outline-secondary:hover {
+    background-color: #f1f1f1;
+    color: var(--charcoal);
+}
+
+.auth-container .input-group .form-control {
+    border-left: 0;
+}
+
+.auth-container .input-group .input-group-text {
+    background-color: #fff;
+    border-right: 0;
+    width: 42px;
+    justify-content: center;
+    color: var(--charcoal);
+}
+
+.auth-container .form-text {
+    color: #6c757d; /* Bootstrap's default muted color */
+}
+
+#username-feedback.text-success {
+    color: var(--primary-color) !important;
+    font-weight: 500;
+}
+
+#username-feedback.text-danger {
+    color: #e74a3b !important;
+    font-weight: 500;
+}
+
+.auth-container .alert {
+    text-align: left;
+}
+
+.auth-container .text-center p,
+.auth-container .text-center a {
+    color: var(--charcoal);
+    text-decoration: none;
+}
+
+.auth-container .text-center a:hover {
+    text-decoration: underline;
+    color: var(--primary-hover);
+}

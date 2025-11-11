@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     'news',
     'crispy_forms',
     'crispy_bootstrap5',
+    'trade',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,7 +69,7 @@ ROOT_URLCONF = 'bani_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'board', 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
