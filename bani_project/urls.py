@@ -30,6 +30,7 @@ urlpatterns = [
     path('market/', include('market.urls')),
     path('dating/', include('dating.urls')),
     path('news/', include('news.urls')),
+    path('trade/', include('trade.urls')),
 ]
 
 if settings.DEBUG:
