@@ -43,7 +43,10 @@
                             <div class="card-body p-5 d-flex flex-column">
                                 <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-cloud-sun me-3"></i>오늘의 날씨</h5>
                                 <p>캠퍼스의 실시간 날씨를 확인하세요.</p>
-                                <div id="weather-widget" class="mb-3">날씨 정보 로딩 중...</div>
+                                <div id="weather-widget" class="list-group list-group-flush">
+                                    <!-- Weather data will be injected here by JS -->
+                                    <div class="list-group-item">로딩 중...</div>
+                                </div>
                                 <a href="{% url 'weather:weather_page' %}" class="btn btn-primary mt-auto">날씨 바로가기</a>
                             </div>
                         </div>
@@ -126,4 +129,11 @@
             </div>
         </section>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const weatherCities = {{ weather_cities|safe }};
+</script>
+<script src="{% static 'js/weather.js' %}"></script>
 {% endblock %}

@@ -222,10 +222,33 @@ body {
 }
 
 #navbarNav .nav-link::before {
+
     content: '•';
+
     position: absolute;
+
     left: 0.75rem;
+
     color: var(--primary-color); /* Use the primary color for the dot */
+
     font-size: 1.2em;
+
     line-height: 1;
+
+}
+
+
+
+/* Custom styles for weather widget list */
+
+.widget-card-feature .list-group-item {
+
+    background-color: transparent;
+
+    color: white;
+
+    border-color: rgba(255, 255, 255, 0.15) !important; /* Use !important to override Bootstrap's default */
+
+    padding: 0.5rem 0;
+
 }
