@@ -3,23 +3,65 @@
 {% block title %}{{ post.title }} - 게시판{% endblock %}
 
 {% block content %}
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header">
             <h1>{{ post.title }}</h1>
             <div class="d-flex justify-content-between">
-                <span>작성자: {{ post.user.username }}</span>
+                <span>작성자: {{ post.user.nickname }}</span>
                 <span>{{ post.created_at|date:"Y-m-d H:i" }}</span>
             </div>
         </div>
         <div class="card-body">
             <p>{{ post.content|linebreaksbr }}</p>
         </div>
-        <div class="card-footer">
-            <a href="{% url 'board:post_list' %}" class="btn btn-secondary">게시판 돌아가기</a>
+        <div class="card-footer text-end">
+            <a href="{% url 'board:post_list' %}" class="btn btn-secondary">목록으로</a>
             {% if user == post.user %}
                 <a href="{% url 'board:post_update' post.pk %}" class="btn btn-warning">수정</a>
                 <a href="{% url 'board:post_delete' post.pk %}" class="btn btn-danger">삭제</a>
             {% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Comments Section -->
+    <div class="card">
+        <div class="card-header">
+            <h5>댓글 ({{ post.comments.count }})</h5>
+        </div>
+        <div class="card-body">
+            <!-- New Comment Form -->
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'board:comment_create' post.pk %}" class="mb-4">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        {{ comment_form.content }}
+                        <button class="btn btn-primary" type="submit">댓글 등록</button>
+                    </div>
+                </form>
+            {% else %}
+                <p><a href="{% url 'users:login' %}?next={{ request.path }}">로그인</a> 후 댓글을 작성할 수 있습니다.</p>
+            {% endif %}
+
+            <!-- Comments List -->
+            {% for comment in post.comments.all %}
+                <div class="d-flex mb-3">
+                    <div class="flex-shrink-0">
+                        <!-- You can add user profile images here if you have them -->
+                         <svg class="bd-placeholder-img rounded-circle" width="50" height="50" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 50x50" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">50x50</text></svg>
+                    </div>
+                    <div class="ms-3 w-100">
+                        <div class="d-flex justify-content-between">
+                            <strong>{{ comment.user.nickname }}</strong>
+                            <small class="text-muted">{{ comment.created_at|date:"Y-m-d H:i" }}</small>
+                        </div>
+                        <p>{{ comment.content|linebreaksbr }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p>아직 댓글이 없습니다.</p>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
