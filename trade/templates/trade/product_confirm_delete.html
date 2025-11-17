@@ -1,0 +1,15 @@
+{% extends 'core/base_app.html' %}
+
+{% block title %}상품 삭제 확인 - 중고거래{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2>정말로 '{{ object.title }}' 상품을 삭제하시겠습니까?</h2>
+    <p>이 작업은 되돌릴 수 없습니다.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">예, 삭제합니다</button>
+        <a href="{% url 'trade:product_detail' object.pk %}" class="btn btn-secondary">아니요, 취소합니다</a>
+    </form>
+</div>
+{% endblock %}
