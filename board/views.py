@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, Comment
+from .forms import CommentForm
 
 class PostListView(ListView):
     model = Post
@@ -12,6 +14,24 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     template_name = 'board/post_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        return context
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        form.instance.user = self.request.user
+        form.instance.post = post
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('board:post_detail', kwargs={'pk': self.kwargs['pk']})
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -27,7 +47,9 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
     template_name = 'board/post_form.html'
-    success_url = reverse_lazy('board:post_list')
+
+    def get_success_url(self):
+        return reverse('board:post_detail', kwargs={'pk': self.object.pk})
 
     def test_func(self):
         post = self.get_object()
