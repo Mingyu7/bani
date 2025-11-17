@@ -1,0 +1,16 @@
+{% extends 'core/base_app.html' %}
+
+{% block title %}댓글 삭제 확인{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2>정말로 댓글을 삭제하시겠습니까?</h2>
+    <p class="text-muted">"{{ object.content|truncatewords:10 }}"</p>
+    <p>이 작업은 되돌릴 수 없습니다.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">예, 삭제합니다</button>
+        <a href="{% url 'board:post_detail' object.post.pk %}" class="btn btn-secondary">아니요, 취소합니다</a>
+    </form>
+</div>
+{% endblock %}

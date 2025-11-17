@@ -53,10 +53,18 @@
                     </div>
                     <div class="ms-3 w-100">
                         <div class="d-flex justify-content-between">
-                            <strong>{{ comment.user.nickname }}</strong>
-                            <small class="text-muted">{{ comment.created_at|date:"Y-m-d H:i" }}</small>
+                            <div>
+                                <strong>{{ comment.user.nickname }}</strong>
+                                <small class="text-muted ms-2">{{ comment.created_at|date:"Y-m-d H:i" }}</small>
+                            </div>
+                            {% if user == comment.user %}
+                            <div>
+                                <a href="{% url 'board:comment_update' post_pk=post.pk pk=comment.pk %}" class="btn btn-sm btn-outline-secondary">수정</a>
+                                <a href="{% url 'board:comment_delete' post_pk=post.pk pk=comment.pk %}" class="btn btn-sm btn-outline-danger">삭제</a>
+                            </div>
+                            {% endif %}
                         </div>
-                        <p>{{ comment.content|linebreaksbr }}</p>
+                        <p class="mt-2">{{ comment.content|linebreaksbr }}</p>
                     </div>
                 </div>
             {% empty %}
