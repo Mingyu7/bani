@@ -1,0 +1,122 @@
+{% extends 'core/base.html' %}
+
+{% block title %}채팅방: {{ room_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    #chat-log {
+        height: 400px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .message {
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        border-radius: 15px;
+        max-width: 70%;
+        word-wrap: break-word;
+    }
+    .message.sent {
+        background-color: #0d6efd;
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 0;
+    }
+    .message.received {
+        background-color: #e9ecef;
+        color: black;
+        align-self: flex-start;
+        border-bottom-left-radius: 0;
+    }
+    .message-meta {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h4 class="mb-0">채팅방: {{ room_name }}</h4>
+                </div>
+                <div class="card-body" id="chat-log-container">
+                    <div id="chat-log" class="p-3">
+                        {# Messages will be prepended here by JavaScript #}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="input-group">
+                        <input id="chat-message-input" type="text" class="form-control" placeholder="메시지를 입력하세요...">
+                        <button id="chat-message-submit" class="btn btn-primary">전송</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ room_name|json_script:"room-name" }}
+{{ username|json_script:"user-username" }}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    const userName = JSON.parse(document.getElementById('user-username').textContent);
+    const chatLog = document.querySelector('#chat-log');
+
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + roomName
+        + '/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const messageElement = document.createElement('div');
+        const messageContainer = document.createElement('div');
+        
+        messageElement.innerText = data.message;
+        
+        if (data.username === userName) {
+            messageContainer.classList.add('message', 'sent');
+            messageContainer.innerHTML = `<div class="message-meta text-end"><strong>나</strong></div>`;
+        } else {
+            messageContainer.classList.add('message', 'received');
+            messageContainer.innerHTML = `<div class="message-meta"><strong>${data.username}</strong></div>`;
+        }
+        
+        messageContainer.appendChild(messageElement);
+        chatLog.prepend(messageContainer); // Prepend to keep new messages at the bottom
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('채팅 소켓이 예기치 않게 닫혔습니다.');
+    };
+
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.key === 'Enter') {
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value;
+        if (message.trim() !== '') {
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        }
+    };
+</script>
+{% endblock %}
