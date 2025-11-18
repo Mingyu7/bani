@@ -1,5 +1,46 @@
-{% extends 'core/base_app.html' %}
+{% extends 'core/base.html' %}
+{% load static %}
 
-{% block app_content %}
-    <h1>뉴스 앱입니다.</h1>
+{% block site_background %}
+    <div class="news-background"></div>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5 pt-5">
+    <div class="text-center mb-5" data-aos="fade-down">
+        <h1 class="display-4 fw-bold news-title">실시간 뉴스</h1>
+        <p class="lead fs-4 news-title">오늘의 주요 소식을 확인하세요.</p>
+    </div>
+
+    {% if error %}
+        <div class="alert alert-danger bg-dark text-white border-danger" role="alert">
+            <h4 class="alert-heading">오류 발생!</h4>
+            <p>뉴스를 가져오는 중 문제가 발생했습니다. 아래의 상세 정보를 확인해주세요.</p>
+            <hr>
+            <pre class="mb-0">{{ error }}</pre>
+        </div>
+    {% elif articles %}
+        <div class="row g-4">
+            {% for article in articles %}
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+                    <div class="card news-card h-100">
+                        <img src="{{ article.urlToImage|default:'https://via.placeholder.com/400x250.png?text=No+Image' }}" class="card-img-top" alt="{{ article.title }}" style="height: 200px; object-fit: cover; border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ article.title }}</h5>
+                            <p class="card-text flex-grow-1">{{ article.description|truncatechars:100|default:"" }}</p>
+                            <a href="{{ article.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-auto">기사 원문 보기</a>
+                        </div>
+                        <div class="card-footer">
+                            <small>{{ article.source.name }} - {{ article.publishedAt|date:"Y-m-d" }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info bg-dark text-white border-info" role="alert">
+            표시할 뉴스가 없습니다.
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

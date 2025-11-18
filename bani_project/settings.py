@@ -47,8 +47,12 @@ INSTALLED_APPS = [
     'market',
     'dating',
     'news',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'trade',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,3 +145,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# NewsAPI Key
+NEWS_API_KEY = '2b453fc3bf494cd9a619b6e59af055c1'

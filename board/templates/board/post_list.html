@@ -1,5 +1,26 @@
 {% extends 'core/base_app.html' %}
 
+{% block title %}게시판{% endblock %}
+
 {% block app_content %}
-    <h1>게시판 앱입니다.</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>게시판</h1>
+        <a href="{% url 'board:post_create' %}" class="btn btn-primary">새 글 작성</a>
+    </div>
+
+    <div class="list-group">
+        {% for post in posts %}
+            <a href="{% url 'board:post_detail' post.pk %}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ post.title }}</h5>
+                    <small>{{ post.created_at|date:"Y-m-d" }}</small>
+                </div>
+                <p class="mb-1">작성자: {{ post.user.username }}</p>
+            </a>
+        {% empty %}
+            <div class="list-group-item">
+                <p class="mb-1">아직 게시글이 없습니다.</p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
