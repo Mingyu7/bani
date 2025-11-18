@@ -71,7 +71,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def get_messages(self):
-        return list(self.room.messages.all().order_by('-timestamp')[:50])
+        return list(self.room.messages.select_related('sender').all().order_by('-timestamp')[:50])
 
     @database_sync_to_async
     def save_message(self, message):
