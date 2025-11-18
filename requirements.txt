@@ -14,3 +14,5 @@ tzdata==2025.2
 urllib3==2.5.0
 django-crispy-forms
 crispy-bootstrap5
+channels
+daphne
