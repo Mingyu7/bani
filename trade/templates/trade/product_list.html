@@ -19,6 +19,24 @@
                 <i class="bi bi-pencil-square me-1"></i> 상품 등록
             </a>
         </div>
+
+        <!-- Search and Filter Form -->
+        <div class="row mb-4" data-aos="fade-down" data-aos-delay="150">
+            <div class="col-md-12">
+                <form method="get" action="{% url 'trade:product_list' %}" class="d-flex flex-wrap justify-content-between align-items-center bg-dark p-3 rounded">
+                    <div class="flex-grow-1 me-2 mb-2 mb-md-0">
+                        <input type="text" name="search" class="form-control" placeholder="제목으로 검색..." value="{{ search_query }}">
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <select name="sort" class="form-select me-2" onchange="this.form.submit()">
+                            <option value="latest" {% if sort_by == 'latest' %}selected{% endif %}>최신순</option>
+                            <option value="oldest" {% if sort_by == 'oldest' %}selected{% endif %}>오래된순</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">검색</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         
         <!-- Product Grid -->
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
@@ -41,15 +59,17 @@
             </div>
             {% empty %}
             <div class="col-12">
-                <p class="text-center text-white">아직 등록된 상품이 없습니다.</p>
+                <p class="text-center text-white">"{{ search_query }}"에 대한 검색 결과가 없습니다.</p>
             </div>
             {% endfor %}
+        </div>
+
         <!-- Pagination -->
         <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5" data-aos="fade-up">
             <ul class="pagination">
                 {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&sort={{ sort_by }}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -61,15 +81,15 @@
 
                 {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
-                        <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">{{ num }}</a></li>
                     {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}&search={{ search_query }}&sort={{ sort_by }}">{{ num }}</a></li>
                     {% endif %}
                 {% endfor %}
 
                 {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&sort={{ sort_by }}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

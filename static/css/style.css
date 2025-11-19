@@ -222,7 +222,7 @@ body {
 }
 
 #navbarNav .nav-link::before {
-    content: '•';
+    content: '??;
     position: absol ute;
     left: 0.75rem;
     color: var(--primary-color); /* Use the primary color for the dot */
@@ -335,4 +335,77 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Auth Container Styling */
+.auth-container {
+    max-width: 400px; /* Limit width for better readability */
+    margin: 50px auto; /* Center horizontally and add some top/bottom margin */
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--charcoal); /* Ensure text inside is dark */
+}
 
+.auth-container h2 {
+    color: var(--charcoal); /* Ensure heading is dark */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.auth-container label {
+    color: var(--charcoal); /* Ensure labels are dark */
+    font-weight: 600;
+}
+
+.auth-container .form-control {
+    color: var(--charcoal); /* Ensure input text is dark */
+    background-color: #fff; /* Explicitly white background for inputs */
+    border-color: #ced4da;
+}
+
+.auth-container .form-control::placeholder {
+    color: #6c757d; /* Placeholder text color */
+}
+
+.auth-container .input-group-text {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+    color: var(--charcoal);
+}
+
+.auth-container .btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.auth-container .text-muted {
+    color: #6c757d !important; /* Ensure muted text is visible */
+}
+
+.auth-container a {
+    color: var(--primary-color); /* Link color */
+}
+
+.auth-container a:hover {
+    text-decoration: underline;
+}
+
+.auth-container .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+
+
+
+/* Wrapper for centering auth pages */
+.auth-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
