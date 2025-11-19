@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from .forms import CustomUserCreationForm, FindPasswordForm, CustomSetPasswordForm
+from django.views.generic import CreateView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CustomUserCreationForm, FindPasswordForm, CustomSetPasswordForm, ProfileUpdateForm
 from django.http import JsonResponse
 from .models import User
 from django.contrib import messages
@@ -10,6 +11,16 @@ class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('users:login')
     template_name = 'users/signup.html'
+
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = ProfileUpdateForm
+    template_name = 'users/profile_update.html'
+    success_url = reverse_lazy('mypage:mypage')
+
+    def get_object(self, queryset=None):
+        # Ensure the user can only edit their own profile
+        return self.request.user
 
 def check_username(request):
     username = request.GET.get('username', None)

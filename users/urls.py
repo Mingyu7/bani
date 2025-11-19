@@ -10,6 +10,7 @@ urlpatterns = [
     path('check-username/', views.check_username, name='check-username'),
     path('find_password/', views.find_password, name='find_password'),
     path('reset_password_confirm/', views.reset_password_confirm, name='reset_password_confirm'),
+    path('profile/', views.ProfileUpdateView.as_view(), name='profile_update'),
 
     # Login and Logout
     path('login/', auth_views.LoginView.as_view(

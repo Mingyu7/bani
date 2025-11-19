@@ -1,34 +1,50 @@
-{% extends "core/base.html" %}
-{% load crispy_forms_tags %}
+{% extends 'core/base.html' %}
 
-{% block title %}프로필 수정{% endblock %}
+{% block title %}정보 수정 - Bani Project{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-dark text-white">
-                    <h3 class="mb-0">프로필 수정</h3>
+<div class="auth-page-wrapper">
+    <div class="auth-container">
+        <h2>정보 수정</h2>
+        <p>회원님의 정보를 수정할 수 있습니다.</p>
+        <form method="post">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
                 </div>
-                <div class="card-body">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-success" role="alert">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                    <form method="post" novalidate>
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary btn-lg mt-3">저장하기</button>
-                        </div>
-                    </form>
-                </div>
+            {% endif %}
+
+            <div class="form-group mb-3">
+                <label for="{{ form.nickname.id_for_label }}">닉네임</label>
+                {{ form.nickname }}
+                {% for error in form.nickname.errors %}
+                <div class="alert alert-danger mt-1 p-2">{{ error }}</div>
+                {% endfor %}
             </div>
-        </div>
+
+            <div class="form-group mb-3">
+                <label for="{{ form.email.id_for_label }}">이메일</label>
+                {{ form.email }}
+                {% for error in form.email.errors %}
+                <div class="alert alert-danger mt-1 p-2">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="{{ form.region.id_for_label }}">지역</label>
+                {{ form.region }}
+                {% for error in form.region.errors %}
+                <div class="alert alert-danger mt-1 p-2">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">수정 완료</button>
+            <a href="{% url 'mypage:mypage' %}" class="btn btn-secondary mt-2">취소</a>
+        </form>
     </div>
 </div>
 {% endblock %}

@@ -70,3 +70,13 @@ class CustomSetPasswordForm(SetPasswordForm):
         'password_mismatch': "두 비밀번호가 일치하지 않습니다.",
     }
 
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['nickname', 'email', 'region']
+        labels = {
+            'nickname': '닉네임',
+            'email': '이메일',
+            'region': '지역',
+        }
+
