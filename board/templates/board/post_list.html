@@ -10,7 +10,7 @@
 
     <div class="list-group">
         {% for post in posts %}
-            <a href="{% url 'board:post_detail' post.pk %}" class="list-group-item list-group-item-action">
+            <a href="{% url 'board:post_detail' post.pk %}" class="list-group-item list-group-item-action {% if post.is_pinned_notice %}list-group-item-info font-weight-bold{% endif %}">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{ post.title }}</h5>
                     <small>{{ post.created_at|date:"Y-m-d" }}</small>

@@ -4,6 +4,8 @@ from django.shortcuts import render
 from datetime import date, timedelta
 from meal_plans.models import DailyMeal # Import the new DailyMeal model
 from news.api import fetch_news
+from board.models import Post # Import Post model
+from trade.models import Product # Import Product model
 
 def index(request):
     today = date.today()
@@ -48,10 +50,18 @@ def index(request):
     if articles:
         random_news_article = random.choice(articles)
 
+    # Fetch latest 5 posts from board
+    latest_posts = Post.objects.order_by('-created_at')[:5]
+
+    # Fetch latest 5 products from market
+    latest_products = Product.objects.order_by('-created_at')[:5]
+
     context = {
         'today': today, # Pass today's date to the template
         'today_meal_plans': today_meal_plans,
         'weather_cities': json.dumps(final_cities),
         'random_news_article': random_news_article,
+        'latest_posts': latest_posts,
+        'latest_products': latest_products,
     }
     return render(request, 'core/index.html', context)

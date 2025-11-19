@@ -10,7 +10,9 @@ class PostListView(ListView):
     model = Post
     template_name = 'board/post_list.html'
     context_object_name = 'posts'
-    ordering = ['-created_at']
+    
+    def get_queryset(self):
+        return Post.objects.order_by('-is_pinned_notice', '-created_at')
 
 from django.db.models import F
 
@@ -52,6 +54,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        if self.request.user.is_staff:
+            form.instance.is_pinned_notice = True
         return super().form_valid(form)
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

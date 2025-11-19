@@ -64,7 +64,7 @@
                                         <h6 class="text-white mt-3 fw-bold fs-5">{{ campus_name }}</h6>
                                         <ul class="list-unstyled mb-0 text-light">
                                             {% for meal_type, menu in meals.items %}
-                                                <li><strong class="fw-bold fs-6">{{ meal_type }}:</strong> {{ menu|meal_replace:"/,<br>" }}</li>
+                                                <li class="d-flex align-items-baseline"><strong class="fw-bold fs-6 me-1">{{ meal_type }}:</strong> <span class="flex-grow-1">{{ menu|meal_replace:"/,<br>" }}</span></li>
                                             <br>
                                             {% endfor %}
                                         </ul>
@@ -83,9 +83,21 @@
                             <div class="card-body p-5 d-flex flex-column">
                                 <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-clipboard-data me-3"></i>게시판</h5>
                                 <p>다양한 학내 소식을 접하고 정보를 공유하세요.</p>
-                                <div class="mt-auto">
-                                    <a href="{% url 'board:post_list' %}" class="btn btn-primary w-100">게시판 바로가기</a>
+                                <div class="list-group list-group-flush mb-3">
+                                    {% for post in latest_posts %}
+                                        <a href="{% url 'board:post_detail' post.pk %}" class="list-group-item list-group-item-action bg-transparent text-white border-0 py-1 px-0">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <small class="mb-1 text-white-50 fw-bold">{{ post.title|truncatechars:20 }}</small>
+                                                <small>{{ post.created_at|date:"m-d" }}</small>
+                                            </div>
+                                        </a>
+                                    {% empty %}
+                                        <div class="list-group-item bg-transparent text-white-50 border-0 py-1 px-0">
+                                            <small>아직 게시글이 없습니다.</small>
+                                        </div>
+                                    {% endfor %}
                                 </div>
+                                <a href="{% url 'board:post_list' %}" class="btn btn-primary mt-auto">게시판 바로가기</a>
                             </div>
                         </div>
                     </div>
@@ -96,15 +108,27 @@
                             <div class="card-body p-5 d-flex flex-column">
                                 <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-shop me-3"></i>중고거래</h5>
                                 <p>필요한 물건을 저렴하게 거래하고 현명한 소비를 경험하세요.</p>
-                                <div class="mt-auto">
-                                    <a href="{% url 'trade:product_list' %}" class="btn btn-primary w-100">중고거래 바로가기</a>
+                                <div class="list-group list-group-flush mb-3">
+                                    {% for product in latest_products %}
+                                        <a href="{% url 'trade:product_detail' product.pk %}" class="list-group-item list-group-item-action bg-transparent text-white border-0 py-1 px-0">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <small class="mb-1 text-white-50 fw-bold">{{ product.title|truncatechars:20 }}</small>
+                                                <small>{{ product.created_at|date:"m-d" }}</small>
+                                            </div>
+                                        </a>
+                                    {% empty %}
+                                        <div class="list-group-item bg-transparent text-white-50 border-0 py-1 px-0">
+                                            <small>아직 등록된 상품이 없습니다.</small>
+                                        </div>
+                                    {% endfor %}
                                 </div>
+                                <a href="{% url 'trade:product_list' %}" class="btn btn-primary mt-auto">중고거래 바로가기</a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Feature 5: Dating -->
-                    <div class="col-lg-3 mb-5">
+                    <div class="col-lg-6 mb-5">
                         <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up" data-aos-delay="400">
                             <div class="card-body p-5 d-flex flex-column">
                                 <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-heart me-3"></i>데이팅</h5>
@@ -116,7 +140,7 @@
 
                     <!-- Feature 6: News (Dynamic) -->
                     {% if random_news_article %}
-                    <div class="col-lg-3 mb-5">
+                    <div class="col-lg-6 mb-5">
                         <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up" data-aos-delay="500">
                             <div class="card-body p-5 d-flex flex-column">
                                 <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-newspaper me-3"></i>최신 뉴스</h5>
