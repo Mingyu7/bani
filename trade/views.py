@@ -5,12 +5,12 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Product
 from .forms import ProductForm
 
-class ProductCreateView(LoginRequiredMixin, TemplateView):
-    template_name = 'trade/product_form.html'
-
+class ProductListView(ListView):
+    model = Product
     context_object_name = 'products'
     ordering = ['-created_at']
     paginate_by = 8
+    template_name = 'trade/product_list.html'
 
 class ProductDetailView(DetailView):
     model = Product
