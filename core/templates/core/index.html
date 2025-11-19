@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load meal_plan_tags %}
 
 {% block site_background %}
     <div class="hero-parallax-background" style="background-image: url('https://i.pinimg.com/1200x/52/bb/52/52bb521e2f8b6c590158c5216814ad5b.jpg');"></div>
@@ -57,8 +58,20 @@
                         <div class="card widget-card-feature shadow-sm h-100" data-aos="zoom-in-up" data-aos-delay="100">
                             <div class="card-body p-5 d-flex flex-column">
                                 <h5 class="card-title fs-3 d-flex align-items-center"><i class="bi bi-card-checklist me-3"></i>오늘의 식단</h5>
-                                <p>학식 메뉴를 미리 확인하세요.</p>
-                                <div id="daily-meal-widget" class="mb-3">{{ daily_meal | safe }}</div>
+                                <p>{{ today|date:"Y년 m월 d일" }}</p>
+                                <div id="daily-meal-widget" class="mb-3">
+                                    {% for campus_name, meals in today_meal_plans.items %}
+                                        <h6 class="text-white mt-3 fw-bold fs-5">{{ campus_name }}</h6>
+                                        <ul class="list-unstyled mb-0 text-light">
+                                            {% for meal_type, menu in meals.items %}
+                                                <li><strong class="fw-bold fs-6">{{ meal_type }}:</strong> {{ menu|meal_replace:"/,<br>" }}</li>
+                                            <br>
+                                            {% endfor %}
+                                        </ul>
+                                    {% empty %}
+                                        <p>오늘의 식단 정보가 없습니다.</p>
+                                    {% endfor %}
+                                </div>
                                 <a href="{% url 'meal_plans:meal_plan_page' %}" class="btn btn-primary mt-auto">식단 바로가기</a>
                             </div>
                         </div>

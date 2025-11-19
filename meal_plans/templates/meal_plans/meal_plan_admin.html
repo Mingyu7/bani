@@ -1,0 +1,52 @@
+{% extends 'core/base_app.html' %}
+{% load meal_plan_tags %}
+
+{% block title %}식단 관리 (관리자){% endblock %}
+
+{% block app_content %}
+<div class="container mt-5">
+    <h2 class="mb-4">식단 관리 (관리자 전용)</h2>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">{% if editing %}식단 수정{% else %}새 식단 추가{% endif %}</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary mt-3">{% if editing %}수정하기{% else %}저장하기{% endif %}</button>
+                        {% if editing %}
+                            <a href="{% url 'meal_plans:meal_plan_admin' %}" class="btn btn-secondary mt-3 ms-2">취소 및 새 식단</a>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">등록된 식단 목록</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for meal in daily_meals %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>
+                                <strong>{{ meal.date|date:"Y-m-d" }} - {{ meal.get_campus_display }} {{ meal.get_meal_type_display }}</strong>: {{ meal.menu_text|meal_replace:"/,<br>" }}
+                            </span>
+                            <div>
+                                <a href="{% url 'meal_plans:meal_plan_admin_edit' pk=meal.pk %}" class="btn btn-sm btn-warning me-2">수정</a>
+                                {# <a href="{% url 'meal_plans:meal_plan_delete' pk=meal.pk %}" class="btn btn-sm btn-danger">삭제</a> #}
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item text-center text-muted">등록된 식단이 없습니다.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
