@@ -41,12 +41,20 @@ def index(request):
     daily_meal = get_daily_meal_for_widget()
 
     # Prepare weather cities
-    cities = [
+    all_cities = [
         ('Seoul', '서울특별시'), ('Busan', '부산'), ('Daegu', '대구'), ('Incheon', '인천'),
         ('Gwangju', '광주'), ('Daejeon', '대전'), ('Ulsan', '울산'), ('Jeju', '제주'),
         ('Suwon', '수원'), ('Chuncheon', '춘천'), ('Cheongju', '청주'), ('Cheonan', '천안'),
         ('Jeonju', '전주'), ('Mokpo', '목포'), ('Pohang', '포항'), ('Changwon', '창원')
     ]
+    cheonan = ('Cheonan', '천안')
+    
+    # Remove Cheonan to avoid duplication
+    other_cities = [city for city in all_cities if city != cheonan]
+    random.shuffle(other_cities)
+    
+    # Select Cheonan + 3 other random cities
+    final_cities = [cheonan] + other_cities[:3]
 
     # Fetch random news article
     articles, error = fetch_news(page_size=50) # Fetch more articles to get a better random sample
@@ -56,7 +64,7 @@ def index(request):
 
     context = {
         'daily_meal': daily_meal,
-        'weather_cities': json.dumps(cities),
+        'weather_cities': json.dumps(final_cities),
         'random_news_article': random_news_article,
     }
     return render(request, 'core/index.html', context)

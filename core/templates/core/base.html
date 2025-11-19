@@ -11,8 +11,22 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     {% block extra_css %}{% endblock %}
+    <style>
+        /* Notification Toast Styles */
+        .toast-container {
+            z-index: 1100; /* Ensure it's above other elements like navbar */
+        }
+        .toast-body {
+            color: black; /* Set text color to black */
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Toast Container for notifications -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <!-- Toasts will be appended here -->
+    </div>
 
     <!-- This div will hold the fixed background image -->
     <div class="site-background">
@@ -35,6 +49,67 @@
     <script>
       AOS.init();
     </script>
+
+    {% if user.is_authenticated %}
+    <script>
+        function showNotificationToast(message) {
+            const toastContainer = document.querySelector('.toast-container');
+            if (!toastContainer) return;
+
+            const toastId = 'toast-' + Date.now();
+            const toastHTML = `
+                <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">BaniBani 알림</strong>
+                        <small>Just now</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            
+            toastContainer.insertAdjacentHTML('beforeend', toastHTML);
+            
+            const toastElement = document.getElementById(toastId);
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+
+            // Remove the toast from DOM after it's hidden
+            toastElement.addEventListener('hidden.bs.toast', function () {
+                toastElement.remove();
+            });
+        }
+
+        // Notification WebSocket
+        const notificationSocket = new WebSocket(
+            'ws://' + window.location.host + '/ws/notifications/'
+        );
+
+        notificationSocket.onopen = function(e) {
+            console.log("NOTIFICATION: Socket connected successfully.");
+        };
+
+        notificationSocket.onmessage = function(e) {
+            console.log("NOTIFICATION: Message received from server:", e.data);
+            const data = JSON.parse(e.data);
+            if (data.type === 'chat_notification') {
+                // Show toast only if not on the chat page
+                if (!window.location.pathname.includes('/message/')) {
+                    console.log("NOTIFICATION: Showing toast notification.");
+                    showNotificationToast(data.message);
+                } else {
+                    console.log("NOTIFICATION: On a chat page, toast suppressed.");
+                }
+            }
+        };
+
+        notificationSocket.onclose = function(e) {
+            console.error('NOTIFICATION: Socket closed unexpectedly. Code:', e.code, 'Reason:', e.reason);
+        };
+    </script>
+    {% endif %}
 
 </body>
 </html>

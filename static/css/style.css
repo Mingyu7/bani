@@ -404,3 +404,45 @@ body {
     align-items: center;
     min-height: 80vh;
 }
+
+
+/* Weather Widget Main Card */
+.weather-main-card {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.weather-main-card h6 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.weather-main-card .current-temp {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.weather-main-card .description {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.weather-main-card .temp-range {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#other-cities-weather .list-group-item {
+    background-color: transparent;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 0;
+}
+
