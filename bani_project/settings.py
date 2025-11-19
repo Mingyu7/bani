@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'meal_plans',
     'users',
     'board',
-    'market',
+    # 'market', # Removed as it causes ModuleNotFoundError
     'dating',
     'news',
     'crispy_forms',
