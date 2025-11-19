@@ -15,8 +15,17 @@
             </div>
             <div class="col-md-6 d-flex flex-column">
                 <div class="card-body">
-                    <h1 class="card-title">{{ product.title }}</h1>
-                    <p class="card-text text-muted">작성자: {{ product.author.nickname }} | {{ product.created_at|date:"Y-m-d" }}</p>
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h1 class="card-title">{{ product.title }}</h1>
+                        {% if user.is_authenticated and user != product.author %}
+                            {% if user in product.wishlisted_by.all %}
+                                <a href="{% url 'trade:toggle_wishlist' product.pk %}" class="btn btn-danger btn-sm">찜 취소</a>
+                            {% else %}
+                                <a href="{% url 'trade:toggle_wishlist' product.pk %}" class="btn btn-success btn-sm">찜하기</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <p class="card-text text-muted">작성자: {{ product.author.nickname }} | {{ product.created_at|date:"Y-m-d" }} | 조회수: {{ product.views }}</p>
                     <hr>
                     <h3 class="card-text fw-bold mb-3">{{ product.price|floatformat:0 }}원</h3>
                     <p class="card-text" style="white-space: pre-wrap;">{{ product.content }}</p>

@@ -8,7 +8,7 @@
             <h1>{{ post.title }}</h1>
             <div class="d-flex justify-content-between">
                 <span>작성자: {{ post.user.nickname }}</span>
-                <span>{{ post.created_at|date:"Y-m-d H:i" }}</span>
+                <span>{{ post.created_at|date:"Y-m-d H:i" }} | 조회수: {{ post.views }}</span>
             </div>
         </div>
         <div class="card-body">

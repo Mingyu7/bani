@@ -15,7 +15,7 @@
                     <h5 class="mb-1">{{ post.title }}</h5>
                     <small>{{ post.created_at|date:"Y-m-d" }}</small>
                 </div>
-                <p class="mb-1">작성자: {{ post.user.username }}</p>
+                <p class="mb-1">작성자: {{ post.user.username }} | 조회수: {{ post.views }}</p>
             </a>
         {% empty %}
             <div class="list-group-item">

@@ -18,10 +18,14 @@ def mypage_view(request):
     # 사용자가 작성한 trade 앱의 판매 상품 조회
     trade_posts = TradePost.objects.filter(author=user).order_by('-created_at')
 
+    # 사용자가 찜한 trade 앱의 상품 조회
+    wishlist_products = user.wishlist.all().order_by('-created_at')
+
     context = {
         'board_posts': board_posts,
         'board_comments': board_comments,
         'trade_posts': trade_posts,
+        'wishlist_products': wishlist_products,
         'user': user,
     }
     return render(request, 'mypage/mypage.html', context)

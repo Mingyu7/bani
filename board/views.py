@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import F
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -11,9 +12,19 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-created_at']
 
+from django.db.models import F
+
+
 class PostDetailView(DetailView):
     model = Post
     template_name = 'board/post_detail.html'
+
+    def get_object(self, queryset=None):
+        item = super().get_object(queryset)
+        item.views = F('views') + 1
+        item.save(update_fields=['views'])
+        item.refresh_from_db()
+        return item
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
