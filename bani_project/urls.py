@@ -31,6 +31,7 @@ urlpatterns = [
     path('dating/', include('dating.urls')),
     path('news/', include('news.urls')),
     path('trade/', include('trade.urls')),
+    path('message/', include('message.urls')),
 ]
 
 if settings.DEBUG:

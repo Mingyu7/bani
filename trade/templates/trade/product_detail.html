@@ -1,0 +1,35 @@
+{% extends 'core/base_app.html' %}
+
+{% block title %}{{ product.title }} - 중고거래{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-6">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.title }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/600x400.png?text=No+Image" class="img-fluid rounded-start" alt="No Image">
+                {% endif %}
+            </div>
+            <div class="col-md-6 d-flex flex-column">
+                <div class="card-body">
+                    <h1 class="card-title">{{ product.title }}</h1>
+                    <p class="card-text text-muted">작성자: {{ product.author.nickname }} | {{ product.created_at|date:"Y-m-d" }}</p>
+                    <hr>
+                    <h3 class="card-text fw-bold mb-3">{{ product.price|floatformat:0 }}원</h3>
+                    <p class="card-text" style="white-space: pre-wrap;">{{ product.content }}</p>
+                </div>
+                <div class="card-footer mt-auto text-end">
+                    <a href="{% url 'trade:product_list' %}" class="btn btn-secondary">목록으로</a>
+                    {% if user == product.author %}
+                        <a href="{% url 'trade:product_update' product.pk %}" class="btn btn-warning">수정</a>
+                        <a href="{% url 'trade:product_delete' product.pk %}" class="btn btn-danger">삭제</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -18,29 +18,68 @@
             <a href="{% url 'trade:product_create' %}" class="btn btn-light me-2">
                 <i class="bi bi-pencil-square me-1"></i> 상품 등록
             </a>
-            <a href="#" class="btn btn-outline-light me-2">
-                <i class="bi bi-person-circle me-1"></i> 마이페이지
-            </a>
-            <a href="#" class="btn btn-outline-light">
-                <i class="bi bi-chat-dots me-1"></i> 채팅
-            </a>
         </div>
         
         <!-- Product Grid -->
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            {% for i in "1234567891011121314" %}
+            {% for product in products %}
             <div class="col" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
-                <div class="card h-100 shadow-sm border-0 widget-card-feature">
-                    <img src="https://picsum.photos/id/{{ forloop.counter | add:10 }}/300/200" class="card-img-top" alt="상품 이미지">
-                    <div class="card-body">
-                        <h5 class="card-title">샘플 상품 {{ i }}</h5>
-                        <p class="card-text">2분 전</p>
-                        <p class="card-text fw-bold">25,000원</p>
+                <a href="{% url 'trade:product_detail' product.pk %}" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm border-0 widget-card-feature">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <img src="https://via.placeholder.com/300x200.png?text=No+Image" class="card-img-top" alt="No image available">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title text-truncate">{{ product.title }}</h5>
+                            <p class="card-text text-muted"><small>{{ product.created_at|timesince }} 전</small></p>
+                            <p class="card-text fw-bold">{{ product.price|floatformat:0 }}원</p>
+                        </div>
                     </div>
-                </div>
+                </a>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center text-white">아직 등록된 상품이 없습니다.</p>
             </div>
             {% endfor %}
-        </div>
+        <!-- Pagination -->
+        <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5" data-aos="fade-up">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
+                    </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&raquo;</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
 </div>
 {% endblock %}

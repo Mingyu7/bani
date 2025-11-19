@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +52,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'trade',
+    'message',
+    'mypage',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -82,6 +86,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'bani_project.wsgi.application'
+ASGI_APPLICATION = 'bani_project.asgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 
 # Database
