@@ -1,5 +1,38 @@
-{% extends 'core/base_app.html' %}
+{% extends 'core/base.html' %}
+{% load static %}
 
-{% block app_content %}
-    <h1>날씨 앱입니다.</h1>
+{% block site_background %}
+    <div class="hero-parallax-background" style="background-image: url('https://i.pinimg.com/1200x/52/bb/52/52bb521e2f8b6c590158c5216814ad5b.jpg');"></div>
+{% endblock %}
+
+{% block content %}
+<div id="weather-page-container" class="container py-5 mt-5">
+    <div style="background-color: rgba(33, 37, 41, 0.8); border-radius: 15px; padding: 2rem;">
+        <div class="text-center mb-4 text-white">
+            <h1 class="display-4">지역별 날씨</h1>
+        </div>
+
+        <div class="list-group">
+            {% for city_en, city_ko in cities %}
+            <div class="list-group-item d-flex justify-content-between align-items-center weather-list-item weather-card" data-city="{{ city_en }}" style="background-color: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); color: white; padding: 1.5rem;">
+                <div class="flex-grow-1">
+                    <h2 id="city-{{ city_en }}" class="mb-1 fs-3">{{ city_ko }}</h2>
+                    <p id="desc-{{ city_en }}" class="mb-0 text-white-50">로딩 중...</p>
+                </div>
+                <div class="text-end">
+                    <p id="temp-{{ city_en }}" class="display-5 mb-0">--°</p>
+                    <div>
+                        <span id="max-temp-{{ city_en }}" class="fs-6 me-2">최고: --°</span>
+                        <span id="min-temp-{{ city_en }}" class="fs-6">최저: --°</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/weather.js' %}"></script>
 {% endblock %}

@@ -1,12 +1,13 @@
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Product
 from .forms import ProductForm
 
-class ProductListView(ListView):
-    model = Product
-    template_name = 'trade/product_list.html'
+class ProductCreateView(LoginRequiredMixin, TemplateView):
+    template_name = 'trade/product_form.html'
+
     context_object_name = 'products'
     ordering = ['-created_at']
     paginate_by = 8
@@ -47,4 +48,5 @@ class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         product = self.get_object()
         return self.request.user == product.author
+
 

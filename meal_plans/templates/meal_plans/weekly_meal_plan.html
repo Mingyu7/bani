@@ -1,5 +1,51 @@
-{% extends 'core/base_app.html' %}
+{% extends "core/base.html" %}
+{% load meal_plan_tags %}
 
-{% block app_content %}
-    <h1>식단 앱입니다.</h1>
+{% block site_background %}
+    <div class="meal-plan-background"></div>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5 pt-5">
+    <div class="text-center mb-5" data-aos="fade-down">
+        <h1 class="display-4 fw-bold meal-plan-title">Weekly Meal Plan</h1>
+        <p class="lead fs-4 meal-plan-title">{{ week_start_date|date:"Y년 m월 d일" }} ~ {{ week_end_date|date:"m월 d일" }}</p>
+    </div>
+
+    {% if plan_data.중식 or plan_data.석식 %}
+        <div class="row justify-content-center g-4">
+            {% for day in days_of_week %}
+                <div class="col-lg col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+                    <div class="card meal-day-card h-100">
+                        <div class="card-header text-center">
+                            {{ day }}요일
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <h5 class="meal-type-heading">중식</h5>
+                                <p>{{ plan_data.중식|get_item:day|default:"-"|linebreaksbr }}</p>
+                            </div>
+                            <hr class="my-4" style="border-color: rgba(255,255,255,0.2);">
+                            <div>
+                                <h5 class="meal-type-heading">석식</h5>
+                                <p>{{ plan_data.석식|get_item:day|default:"-"|linebreaksbr }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="col-12" data-aos="zoom-in">
+            <div class="alert alert-warning text-center bg-dark text-white border-warning" role="alert">
+                <h4 class="alert-heading">이번 주 식단 정보가 없습니다.</h4>
+                <p>관리자가 곧 맛있는 식단을 준비할 예정입니다. 조금만 기다려주세요!</p>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="text-center mt-5">
+        <a href="{% url 'core:index' %}" class="btn btn-outline-light">메인으로 돌아가기</a>
+    </div>
+</div>
 {% endblock %}

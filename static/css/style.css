@@ -223,110 +223,116 @@ body {
 
 #navbarNav .nav-link::before {
     content: '•';
-    position: absolute;
+    position: absol ute;
     left: 0.75rem;
     color: var(--primary-color); /* Use the primary color for the dot */
     font-size: 1.2em;
     line-height: 1;
 }
 
-/* =================================================================
-   7. Authentication Pages (Login/Signup)
-   ================================================================= */
-
-.auth-container {
-    max-width: 500px;
-    margin: 5rem auto;
-    padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 0.5rem;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-    color: var(--charcoal);
-    text-align: center;
+/* Custom styles for weather widget list */
+.widget-card-feature .list-group-item {
+    background-color: transparent;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.15) !important; /* Use !important to override Bootstrap's default */
+    padding: 0.5rem 0;
 }
 
-.auth-container h2 {
-    color: var(--charcoal);
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-}
-
-.auth-container label {
-    color: var(--charcoal);
-    font-weight: 500;
-    display: block;
-    text-align: left;
-}
-
-.auth-container .form-control {
-    background-color: #fff;
-    border: 1px solid #ced4da;
-    color: var(--charcoal);
-}
-
-.auth-container .btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    font-weight: 600;
-    padding: 0.75rem;
+/* 7. Meal Plan Page Specific Styles */
+.meal-plan-background {
+    background-image: url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
     width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Parallax effect */
+    filter: brightness(0.6);
+}
+
+.meal-plan-title {
     color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.7);
 }
 
-.auth-container .btn-primary:hover {
-    background-color: var(--primary-hover);
-    border-color: var(--primary-hover);
+.meal-day-card {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 0.75rem;
     color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.auth-container .btn-outline-secondary {
-    color: var(--charcoal);
-    border-color: #ced4da;
-    background-color: #fff;
+.meal-day-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.3);
 }
 
-.auth-container .btn-outline-secondary:hover {
-    background-color: #f1f1f1;
-    color: var(--charcoal);
+.meal-day-card .card-header {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+    font-size: 1.5rem;
 }
 
-.auth-container .input-group .form-control {
-    border-left: 0;
+.meal-type-heading {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block;
 }
 
-.auth-container .input-group .input-group-text {
-    background-color: #fff;
-    border-right: 0;
-    width: 42px;
-    justify-content: center;
-    color: var(--charcoal);
+.meal-day-card .card-body p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
 }
 
-.auth-container .form-text {
-    color: #6c757d; /* Bootstrap's default muted color */
+/* 8. News Page Specific Styles */
+.news-background {
+    background-image: url('https://images.pexels.com/photos/261628/pexels-photo-261628.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Parallax effect */
+    filter: brightness(0.5);
 }
 
-#username-feedback.text-success {
-    color: var(--primary-color) !important;
-    font-weight: 500;
+.news-title {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.7);
 }
 
-#username-feedback.text-danger {
-    color: #e74a3b !important;
-    font-weight: 500;
+.news-card {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 0.75rem;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.auth-container .alert {
-    text-align: left;
+.news-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.2);
 }
 
-.auth-container .text-center p,
-.auth-container .text-center a {
-    color: var(--charcoal);
-    text-decoration: none;
+.news-card .card-title {
+    color: white;
+    font-weight: 600;
 }
 
-.auth-container .text-center a:hover {
-    text-decoration: underline;
-    color: var(--primary-hover);
+.news-card .card-text {
+    color: rgba(255, 255, 255, 0.8);
 }
+
+.news-card .card-footer {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+

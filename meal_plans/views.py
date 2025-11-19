@@ -1,45 +1,43 @@
 from django.shortcuts import render
-import datetime
-from bs4 import BeautifulSoup
-from django.conf import settings
-import os
+from .models import MealPlan
+from datetime import date, timedelta
 
-def get_daily_meal():
-    try:
-        # 요일 맵 (0:월, 1:화, ...)
-        weekday_map = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일']
-        today_weekday = datetime.datetime.today().weekday()
+def weekly_meal_plan_view(request):
+    """
+    이번 주 식단표를 조회하여 템플릿에 전달하는 뷰
+    """
+    today = date.today()
+    # 오늘이 무슨 요일인지 확인 (월요일=0, 일요일=6)
+    current_weekday = today.weekday()
+    # 이번 주 월요일 날짜 계산
+    start_of_week = today - timedelta(days=current_weekday)
+    
+    # 이번 주에 해당하는 식단표를 찾음
+    meal_plan = MealPlan.objects.filter(week_start_date=start_of_week).first()
+    
+    # 템플릿에 전달할 데이터 구조
+    # ex: {'중식': {'월': '메뉴', '화': '메뉴'}, '석식': ...}
+    plan_data = {
+        '중식': {},
+        '석식': {}
+    }
+    
+    if meal_plan:
+        # 요일 이름 매핑 (모델의 'Mon' -> 템플릿의 '월')
+        day_map = {
+            'Mon': '월', 'Tue': '화', 'Wed': '수', 'Thu': '목', 'Fri': '금', 'Sat': '토', 'Sun': '일'
+        }
+        for item in meal_plan.items.all():
+            # 모델에 저장된 'Mon', 'Tue' 등을 '월', '화' 로 변환
+            day_in_korean = day_map.get(item.day_of_week, '')
+            if day_in_korean and item.meal_type in plan_data:
+                plan_data[item.meal_type][day_in_korean] = item.menu
 
-        # 토/일요일은 식단 정보 없음 처리
-        if today_weekday > 4: 
-            return "<p>오늘은 식단 정보가 없습니다.</p>"
-
-        today_str = weekday_map[today_weekday]
-
-        # 식단표 파일 읽기
-        file_path = os.path.join(settings.BASE_DIR, 'core', 'templates', 'core', 'components', 'meal-plan.html')
-        with open(file_path, 'r', encoding='utf-8') as f:
-            soup = BeautifulSoup(f, 'html.parser')
-
-        # 테이블 헤더에서 오늘 요일의 인덱스 찾기
-        headers = soup.find('thead').find_all('th')
-        col_idx = -1
-        for i, th in enumerate(headers):
-            if today_str in th.text:
-                col_idx = i
-                break
-        
-        if col_idx == -1:
-            return "<p>식단 정보를 찾을 수 없습니다.</p>"
-
-        # 해당 인덱스의 중식, 석식 정보 가져오기
-        lunch_menu = soup.select_one(f'tbody tr:nth-of-type(1) td:nth-of-type({col_idx})').decode_contents()
-        dinner_menu = soup.select_one(f'tbody tr:nth-of-type(2) td:nth-of-type({col_idx-1})').decode_contents()
-
-        return f'<h6>[중식]</h6><p>{lunch_menu}</p><h6>[석식]</h6><p>{dinner_menu}</p>'
-
-    except Exception as e:
-        return f"<p>식단 정보를 불러오는 중 오류가 발생했습니다.</p><p style='font-size:0.7rem; color:grey;'>{e}</p>"
-
-def meal_plan_page(request):
-    return render(request, 'meal_plans/weekly_meal_plan.html')
+    context = {
+        'week_start_date': start_of_week,
+        'week_end_date': start_of_week + timedelta(days=4), # 금요일까지
+        'plan_data': plan_data,
+        'days_of_week': ['월', '화', '수', '목', '금'],
+    }
+    
+    return render(request, 'meal_plans/weekly_meal_plan.html', context)
