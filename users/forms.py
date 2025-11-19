@@ -55,3 +55,24 @@ class CustomUserCreationForm(UserCreationForm):
             'username': '아이디',
         }
 
+
+class ProfileUpdateForm(forms.ModelForm):
+    gender = forms.ChoiceField(
+        label="성별",
+        choices=GENDER_CHOICES,
+        widget=forms.RadioSelect,
+        required=False
+    )
+    region = forms.ChoiceField(
+        label="지역",
+        choices=REGION_CHOICES,
+        required=False
+    )
+
+    class Meta:
+        model = User
+        fields = ('nickname', 'gender', 'region')
+        labels = {
+            'nickname': '닉네임',
+        }
+

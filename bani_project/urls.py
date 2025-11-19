@@ -32,6 +32,7 @@ urlpatterns = [
     path('news/', include('news.urls')),
     path('trade/', include('trade.urls')),
     path('message/', include('message.urls')),
+    path('mypage/', include('mypage.urls')),
 ]
 
 if settings.DEBUG:
