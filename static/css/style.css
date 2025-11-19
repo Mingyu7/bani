@@ -211,23 +211,18 @@ body {
 
 #navbarNav .nav-link {
     display: inline-block !important;
-    /* background-color: var(--primary-color); */ /* Removed background */
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     margin: 0.25rem 0;
     color: white !important;
     width: auto;
-    position: relative; /* Needed for pseudo-element positioning */
-    padding-left: 2rem; /* Make space for the dot */
+    position: relative;
 }
 
-#navbarNav .nav-link::before {
-    content: '•';
-    position: absol ute;
-    left: 0.75rem;
-    color: var(--primary-color); /* Use the primary color for the dot */
+.nav-dot {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
     font-size: 1.2em;
-    line-height: 1;
 }
 
 /* Custom styles for weather widget list */
@@ -335,4 +330,119 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Auth Container Styling */
+.auth-container {
+    max-width: 400px; /* Limit width for better readability */
+    margin: 50px auto; /* Center horizontally and add some top/bottom margin */
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--charcoal); /* Ensure text inside is dark */
+}
+
+.auth-container h2 {
+    color: var(--charcoal); /* Ensure heading is dark */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.auth-container label {
+    color: var(--charcoal); /* Ensure labels are dark */
+    font-weight: 600;
+}
+
+.auth-container .form-control {
+    color: var(--charcoal); /* Ensure input text is dark */
+    background-color: #fff; /* Explicitly white background for inputs */
+    border-color: #ced4da;
+}
+
+.auth-container .form-control::placeholder {
+    color: #6c757d; /* Placeholder text color */
+}
+
+.auth-container .input-group-text {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+    color: var(--charcoal);
+}
+
+.auth-container .btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.auth-container .text-muted {
+    color: #6c757d !important; /* Ensure muted text is visible */
+}
+
+.auth-container a {
+    color: var(--primary-color); /* Link color */
+}
+
+.auth-container a:hover {
+    text-decoration: underline;
+}
+
+.auth-container .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+
+
+
+/* Wrapper for centering auth pages */
+.auth-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+
+/* Weather Widget Main Card */
+.weather-main-card {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.weather-main-card h6 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.weather-main-card .current-temp {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.weather-main-card .description {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.weather-main-card .temp-range {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#other-cities-weather .list-group-item {
+    background-color: transparent;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 0;
+}
 

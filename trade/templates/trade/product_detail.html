@@ -23,6 +23,9 @@
                 </div>
                 <div class="card-footer mt-auto text-end">
                     <a href="{% url 'trade:product_list' %}" class="btn btn-secondary">목록으로</a>
+                    {% if user.is_authenticated and user != product.author %}
+                        <a href="{% url 'trade:create_trade_chat' product.author.username %}" class="btn btn-primary">판매자와 채팅하기</a>
+                    {% endif %}
                     {% if user == product.author %}
                         <a href="{% url 'trade:product_update' product.pk %}" class="btn btn-warning">수정</a>
                         <a href="{% url 'trade:product_delete' product.pk %}" class="btn btn-danger">삭제</a>

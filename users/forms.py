@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, SetPasswordForm
 from .models import User
 
 GENDER_CHOICES = [
@@ -26,6 +26,12 @@ REGION_CHOICES = [
     ('경상남도', '경상남도'),
     ('제주도', '제주도'),
 ]
+
+class CustomAuthenticationForm(AuthenticationForm):
+    error_messages = {
+        'invalid_login': "아이디 또는 비밀번호가 올바르지 않습니다.",
+        'inactive': "이 계정은 비활성화되었습니다.",
+    }
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(
@@ -55,24 +61,12 @@ class CustomUserCreationForm(UserCreationForm):
             'username': '아이디',
         }
 
+class FindPasswordForm(forms.Form):
+    username = forms.CharField(label="아이디", max_length=150)
+    email = forms.EmailField(label="이메일")
 
-class ProfileUpdateForm(forms.ModelForm):
-    gender = forms.ChoiceField(
-        label="성별",
-        choices=GENDER_CHOICES,
-        widget=forms.RadioSelect,
-        required=False
-    )
-    region = forms.ChoiceField(
-        label="지역",
-        choices=REGION_CHOICES,
-        required=False
-    )
-
-    class Meta:
-        model = User
-        fields = ('nickname', 'gender', 'region')
-        labels = {
-            'nickname': '닉네임',
-        }
+class CustomSetPasswordForm(SetPasswordForm):
+    error_messages = {
+        'password_mismatch': "두 비밀번호가 일치하지 않습니다.",
+    }
 

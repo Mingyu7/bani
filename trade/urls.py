@@ -5,6 +5,7 @@ from .views import (
     ProductCreateView,
     ProductUpdateView,
     ProductDeleteView,
+    create_trade_chat,
 )
 
 app_name = 'trade'
@@ -16,5 +17,6 @@ urlpatterns = [
     path('product/new/', ProductCreateView.as_view(), name='product_create'),
     path('product/<int:pk>/edit/', ProductUpdateView.as_view(), name='product_update'),
     path('product/<int:pk>/delete/', ProductDeleteView.as_view(), name='product_delete'),
+    path('chat/<str:username>/', create_trade_chat, name='create_trade_chat'),
 
 ]
