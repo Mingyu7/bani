@@ -34,22 +34,25 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-end pe-3" href="{% url 'meal_plans:meal_plan_page' %}">오늘의 식단</a>
+                    <a class="nav-link text-end pe-3" href="{% url 'meal_plans:meal_plan_page' %}"><span class="nav-dot">•</span>오늘의 식단</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-end pe-3" href="{% url 'board:post_list' %}">게시판</a>
+                    <a class="nav-link text-end pe-3" href="{% url 'board:post_list' %}"><span class="nav-dot">•</span>게시판</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-end pe-3" href="{% url 'trade:product_list' %}">중고거래</a>
+                    <a class="nav-link text-end pe-3" href="{% url 'trade:product_list' %}"><span class="nav-dot">•</span>중고거래</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-end pe-3" href="{% url 'dating:dating_page' %}">데이팅</a>
+                    <a class="nav-link text-end pe-3" href="{% url 'dating:dating_page' %}"><span class="nav-dot">•</span>데이팅</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-end pe-3" href="{% url 'weather:weather_page' %}">날씨</a>
+                    <a class="nav-link text-end pe-3" href="{% url 'weather:weather_page' %}"><span class="nav-dot">•</span>날씨</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-end pe-3" href="{% url 'news:news_page' %}">뉴스</a>
+                    <a class="nav-link text-end pe-3" href="{% url 'news:news_page' %}"><span class="nav-dot">•</span>뉴스</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-end pe-3" href="{% url 'message:index' %}"><span class="nav-dot">•</span>채팅</a>
                 </li>
             </ul>
         </div>

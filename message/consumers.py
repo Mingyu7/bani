@@ -33,7 +33,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             logger.info(f"Sending historical message from {message.sender.username}: {message.content}")
             await self.send(text_data=json.dumps({
                 'message': message.content,
-                'username': message.sender.username
+                'nickname': message.sender.nickname  # Use nickname
             }))
 
     async def disconnect(self, close_code):
@@ -46,9 +46,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        username = self.user.username
+        nickname = self.user.nickname  # Use nickname
         
-        logger.info(f"Received message '{message}' from {username} in room {self.room_name}. Preparing to save.")
+        logger.info(f"Received message '{message}' from {self.user.username} in room {self.room_name}. Preparing to save.")
         await self.save_message(message)
         logger.info("Message saved to DB.")
 
@@ -57,17 +57,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
             {
                 'type': 'chat_message',
                 'message': message,
-                'username': username
+                'nickname': nickname  # Use nickname
             }
         )
 
     async def chat_message(self, event):
         message = event['message']
-        username = event['username']
+        nickname = event['nickname']  # Use nickname
 
         await self.send(text_data=json.dumps({
             'message': message,
-            'username': username
+            'nickname': nickname  # Use nickname
         }))
 
     @database_sync_to_async

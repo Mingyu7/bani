@@ -211,23 +211,18 @@ body {
 
 #navbarNav .nav-link {
     display: inline-block !important;
-    /* background-color: var(--primary-color); */ /* Removed background */
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     margin: 0.25rem 0;
     color: white !important;
     width: auto;
-    position: relative; /* Needed for pseudo-element positioning */
-    padding-left: 2rem; /* Make space for the dot */
+    position: relative;
 }
 
-#navbarNav .nav-link::before {
-    content: '??;
-    position: absolute;
-    left: 0.75rem;
-    color: var(--primary-color); /* Use the primary color for the dot */
+.nav-dot {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
     font-size: 1.2em;
-    line-height: 1;
 }
 
 /* Custom styles for weather widget list */
