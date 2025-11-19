@@ -27,7 +27,6 @@ urlpatterns = [
     path('weather/', include('weather.urls')),
     path('meal-plan/', include('meal_plans.urls')),
     path('board/', include('board.urls')),
-    path('market/', include('market.urls')),
     path('dating/', include('dating.urls')),
     path('news/', include('news.urls')),
     path('trade/', include('trade.urls')),

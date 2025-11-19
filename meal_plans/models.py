@@ -35,3 +35,26 @@ class MealItem(models.Model):
 
     def __str__(self):
         return f"{self.get_day_of_week_display()} {self.meal_type}: {self.menu[:15]}"
+
+class DailyMeal(models.Model):
+    CAMPUS_CHOICES = [
+        ('아산', '아산'),
+        ('영동', '영동'),
+    ]
+    MEAL_TYPE_CHOICES = [
+        ('중식', '중식'),
+        ('석식', '석식'),
+    ]
+    
+    campus = models.CharField(max_length=20, choices=CAMPUS_CHOICES)
+    meal_type = models.CharField(max_length=10, choices=MEAL_TYPE_CHOICES)
+    date = models.DateField()
+    menu_text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('campus', 'meal_type', 'date')
+        ordering = ['date', 'campus', 'meal_type']
+
+    def __str__(self):
+        return f"{self.date} - {self.campus} {self.meal_type}: {self.menu_text[:30]}..."

@@ -32,7 +32,7 @@
                             <option value="latest" {% if sort_by == 'latest' %}selected{% endif %}>최신순</option>
                             <option value="oldest" {% if sort_by == 'oldest' %}selected{% endif %}>오래된순</option>
                         </select>
-                        <button type="submit" class="btn btn-primary">검색</button>
+                        <button type="submit" class="btn btn-primary" style="white-space: nowrap;">검색</button>
                     </div>
                 </form>
             </div>
@@ -51,8 +51,11 @@
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title text-truncate">{{ product.title }}</h5>
-                            <p class="card-text text-muted"><small>{{ product.created_at|timesince }} 전</small></p>
-                            <p class="card-text fw-bold">{{ product.price|floatformat:0 }}원</p>
+                            <p class="card-text">{{ product.content|truncatewords:10 }}</p>
+                            <div class="d-flex justify-content-between align-items-end w-100">
+                                <p class="card-text fw-bold mb-0 text-white">{{ product.price|floatformat:0 }}원</p>
+                                <p class="card-text mb-0 text-white"><small>{{ product.created_at|date:"Y-m-d" }} | 조회수: {{ product.views }}</small></p>
+                            </div>
                         </div>
                     </div>
                 </a>

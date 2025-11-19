@@ -42,8 +42,18 @@
                 {% endfor %}
             </div>
 
-            <button type="submit" class="btn btn-primary">수정 완료</button>
-            <a href="{% url 'mypage:mypage' %}" class="btn btn-secondary mt-2">취소</a>
+            <div class="form-group mb-3">
+                <label for="{{ form.gender.id_for_label }}">성별</label>
+                <div>{{ form.gender }}</div>
+                {% for error in form.gender.errors %}
+                <div class="alert alert-danger mt-1 p-2">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+                <a href="{% url 'mypage:mypage' %}" class="btn btn-secondary me-2" style="color: white;">취소</a>
+                <button type="submit" class="btn btn-primary">수정 완료</button>
+            </div>
         </form>
     </div>
 </div>

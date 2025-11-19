@@ -1,5 +1,6 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import F
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Product
@@ -39,9 +40,19 @@ class ProductListView(ListView):
         context['sort_by'] = self.request.GET.get('sort', 'latest')
         return context
 
+from django.db.models import F
+
+
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'trade/product_detail.html'
+
+    def get_object(self, queryset=None):
+        item = super().get_object(queryset)
+        item.views = F('views') + 1
+        item.save(update_fields=['views'])
+        item.refresh_from_db()
+        return item
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
@@ -75,6 +86,22 @@ class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         product = self.get_object()
         return self.request.user == product.author
+
+from django.shortcuts import redirect, get_object_or_404
+
+
+@login_required
+def toggle_wishlist(request, product_pk):
+    product = get_object_or_404(Product, pk=product_pk)
+    user = request.user
+
+    if user in product.wishlisted_by.all():
+        product.wishlisted_by.remove(user)
+    else:
+        product.wishlisted_by.add(user)
+    
+    return redirect('trade:product_detail', pk=product_pk)
+
 
 @login_required
 def create_trade_chat(request, username):

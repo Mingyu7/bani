@@ -2,44 +2,32 @@ import json
 import random
 from django.shortcuts import render
 from datetime import date, timedelta
-from meal_plans.models import MealPlan, MealItem
+from meal_plans.models import DailyMeal # Import the new DailyMeal model
 from news.api import fetch_news
-
-def get_daily_meal_for_widget():
-    """
-    새로운 모델 구조에서 오늘의 식단 정보를 가져와 위젯에 표시할 HTML을 생성합니다.
-    """
-    today = date.today()
-    current_weekday_num = today.weekday() # 월요일=0
-    start_of_week = today - timedelta(days=current_weekday_num)
-    
-    # 요일 숫자 -> 모델의 문자열 ('Mon', 'Tue'...)
-    day_map_num_to_str = {0: 'Mon', 1: 'Tue', 2: 'Wed', 3: 'Thu', 4: 'Fri', 5: 'Sat', 6: 'Sun'}
-    today_str = day_map_num_to_str.get(current_weekday_num)
-
-    # 이번 주 식단 찾기
-    meal_plan = MealPlan.objects.filter(week_start_date=start_of_week).first()
-    if not meal_plan or not today_str:
-        return "<p>오늘 식단 정보가 없습니다.</p>"
-
-    # 오늘에 해당하는 식단 아이템들 찾기
-    todays_meals = meal_plan.items.filter(day_of_week=today_str).order_by('meal_type')
-    
-    if not todays_meals:
-        return "<p>오늘 식단 정보가 없습니다.</p>"
-
-    content = ""
-    for meal in todays_meals:
-        menu_with_br = meal.menu.replace('\n', '<br>')
-        content += f"<h6>[{meal.meal_type}]</h6><p>{menu_with_br}</p>"
-    
-    return content if content else "<p>오늘 식단 정보가 없습니다.</p>"
-
+from board.models import Post # Import Post model
+from trade.models import Product # Import Product model
 
 def index(request):
-    # Fetch daily meal
-    daily_meal = get_daily_meal_for_widget()
+    today = date.today()
+    today_meal_plans = {}
 
+    campuses = ['아산'] # Only display Asan campus meal plan on the main page
+    meal_types = ['중식', '석식']
+
+    for campus in campuses:
+        today_meal_plans[campus] = {}
+        for meal_type in meal_types:
+            meal_entry = DailyMeal.objects.filter(
+                date=today,
+                campus=campus,
+                meal_type=meal_type
+            ).first()
+            if meal_entry:
+                menu_items = meal_entry.menu_text.split('/')
+                truncated_menu = '/'.join(menu_items[:5])
+                today_meal_plans[campus][meal_type] = truncated_menu
+            else:
+                today_meal_plans[campus][meal_type] = '정보 없음'    
     # Prepare weather cities
     all_cities = [
         ('Seoul', '서울특별시'), ('Busan', '부산'), ('Daegu', '대구'), ('Incheon', '인천'),
@@ -62,9 +50,18 @@ def index(request):
     if articles:
         random_news_article = random.choice(articles)
 
+    # Fetch latest 5 posts from board
+    latest_posts = Post.objects.order_by('-created_at')[:5]
+
+    # Fetch latest 5 products from market
+    latest_products = Product.objects.order_by('-created_at')[:5]
+
     context = {
-        'daily_meal': daily_meal,
+        'today': today, # Pass today's date to the template
+        'today_meal_plans': today_meal_plans,
         'weather_cities': json.dumps(final_cities),
         'random_news_article': random_news_article,
+        'latest_posts': latest_posts,
+        'latest_products': latest_products,
     }
     return render(request, 'core/index.html', context)

@@ -71,9 +71,16 @@ class CustomSetPasswordForm(SetPasswordForm):
     }
 
 class ProfileUpdateForm(forms.ModelForm):
+    gender = forms.ChoiceField(
+        label="성별",
+        choices=GENDER_CHOICES,
+        widget=forms.RadioSelect,
+        required=True
+    )
+
     class Meta:
         model = User
-        fields = ['nickname', 'email', 'region']
+        fields = ['nickname', 'email', 'region', 'gender']
         labels = {
             'nickname': '닉네임',
             'email': '이메일',

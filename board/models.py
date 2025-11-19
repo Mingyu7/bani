@@ -17,6 +17,8 @@ class Post(models.Model):
     title = models.CharField(max_length=200)  # 제목
     content = models.TextField()  # 내용
     created_at = models.DateTimeField(auto_now_add=True)  # 작성일시
+    views = models.IntegerField(default=0)  # 조회수
+    is_pinned_notice = models.BooleanField(default=False)  # 관리자 고정 공지 여부
 
     def __str__(self):
         return self.title
