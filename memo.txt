@@ -1,5 +1,7 @@
 1.설정 pip install
 pip install -r requirements.txt
+1-1. mysql 사용시 설치 필수
+pip install mysqlclient
 2. update
 python.exe -m pip install --upgrade pip
 3. run
