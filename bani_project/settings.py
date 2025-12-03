@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-!8*p6^u&oj+kiop063&!s&nu$8$e9349ehm31xysy2_+sb0jpb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['15.165.8.84', 'localhost', '127.0.0.1','3.39.109.180']
 
 
 # Application definition
@@ -97,24 +97,24 @@ CHANNEL_LAYERS = {
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bani',
-        'USER': 'admin',     # 마스터 사용자 이름
-        'PASSWORD': 'Mingyu5749!',
-        'HOST': 'database-2.ct884c60cwin.ap-northeast-2.rds.amazonaws.com', # 엔드포인트
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'bani',
+#         'USER': 'admin',     # 마스터 사용자 이름
+#         'PASSWORD': 'Mingyu5749!',
+#         'HOST': 'database-2.ct884c60cwin.ap-northeast-2.rds.amazonaws.com', # 엔드포인트
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -150,10 +150,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# 1. STATIC_URL (경로 접두사)
+STATIC_URL = '/static/' 
+
+# 2. STATICFILES_DIRS (정적 파일이 위치한 프로젝트 레벨 폴더 지정)
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / 'static',
+    # 또는 '/home/ubuntu/bani-main/static',
 ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

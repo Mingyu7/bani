@@ -1,4 +1,5 @@
 {% extends 'core/base_app.html' %}
+{% load humanize %}
 
 {% block title %}{{ product.title }} - 중고거래{% endblock %}
 
@@ -27,7 +28,7 @@
                     </div>
                     <p class="card-text text-muted">작성자: {{ product.author.nickname }} | {{ product.created_at|date:"Y-m-d" }} | 조회수: {{ product.views }}</p>
                     <hr>
-                    <h3 class="card-text fw-bold mb-3">{{ product.price|floatformat:0 }}원</h3>
+                    <h3 class="card-text fw-bold mb-3">{{ product.price|intcomma }}원</h3>
                     <p class="card-text" style="white-space: pre-wrap;">{{ product.content }}</p>
                 </div>
                 <div class="card-footer mt-auto text-end">
@@ -37,7 +38,7 @@
                     {% endif %}
                     {% if user == product.author %}
                         <a href="{% url 'trade:product_update' product.pk %}" class="btn btn-warning">수정</a>
-                        <a href="{% url 'trade:product_delete' product.pk %}" class="btn btn-danger">삭제</a>
+                        <a href="{% url 'trade:product_delete' product.pk %}" class="btn btn-danger">거래완료</a>
                     {% endif %}
                 </div>
             </div>

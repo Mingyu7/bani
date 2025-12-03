@@ -1,10 +1,10 @@
 {% extends 'core/base_app.html' %}
 
-{% block title %}상품 삭제 확인 - 중고거래{% endblock %}
+{% block title %}상품판매확인 - 중고거래{% endblock %}
 
 {% block content %}
 <div class="container py-5">
-    <h2>정말로 '{{ object.title }}' 상품을 삭제하시겠습니까?</h2>
+    <h2>정말로 '{{ object.title }}' 상품을 판매 하셨습니까?</h2>
     <p>이 작업은 되돌릴 수 없습니다.</p>
     <form method="post">
         {% csrf_token %}

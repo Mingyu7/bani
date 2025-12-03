@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load humanize %}
 
 {% block site_background %}
     <div class="hero-parallax-background" style="background-image: url('https://i.pinimg.com/1200x/52/bb/52/52bb521e2f8b6c590158c5216814ad5b.jpg');"></div>
@@ -7,20 +8,17 @@
 {% block content %}
 <div class="container py-5 mt-5">
     <div style="background-color: rgba(33, 37, 41, 0.8); border-radius: 15px; padding: 3rem;">
-        <!-- Header -->
         <div class="text-center mb-5 text-white" data-aos="fade-down">
             <h1 class="display-4 fw-bold">중고거래</h1>
             <p class="fs-5" style="color: rgba(255, 255, 255, 0.8);">캠퍼스의 따뜻한 거래 공간, 지금 바로 시작해보세요.</p>
         </div>
 
-        <!-- Action Buttons -->
         <div class="d-flex justify-content-end mb-4" data-aos="fade-down" data-aos-delay="100">
             <a href="{% url 'trade:product_create' %}" class="btn btn-light me-2">
                 <i class="bi bi-pencil-square me-1"></i> 상품 등록
             </a>
         </div>
 
-        <!-- Search and Filter Form -->
         <div class="row mb-4" data-aos="fade-down" data-aos-delay="150">
             <div class="col-md-12">
                 <form method="get" action="{% url 'trade:product_list' %}" class="d-flex flex-wrap justify-content-between align-items-center bg-dark p-3 rounded">
@@ -37,8 +35,7 @@
                 </form>
             </div>
         </div>
-        
-        <!-- Product Grid -->
+
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for product in products %}
             <div class="col" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
@@ -49,13 +46,17 @@
                         {% else %}
                             <img src="https://via.placeholder.com/300x200.png?text=No+Image" class="card-img-top" alt="No image available">
                         {% endif %}
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title text-truncate">{{ product.title }}</h5>
                             <p class="card-text">{{ product.content|truncatewords:10 }}</p>
-                            <div class="d-flex justify-content-between align-items-end w-100">
-                                <p class="card-text fw-bold mb-0 text-white">{{ product.price|floatformat:0 }}원</p>
-                                <p class="card-text mb-0 text-white"><small>{{ product.created_at|date:"Y-m-d" }} | 조회수: {{ product.views }}</small></p>
+
+                            <div class="mt-auto pt-3">
+                                <p class="card-text fw-bold mb-1 text-white fs-5">{{ product.price|intcomma }}원</p>
+                                <p class="card-text mb-0 text-white" style="opacity: 0.7; font-size: 0.9em;">
+                                    {{ product.created_at|date:"Y-m-d" }} | 조회수: {{ product.views }}
+                                </p>
                             </div>
+
                         </div>
                     </div>
                 </a>
@@ -67,7 +68,6 @@
             {% endfor %}
         </div>
 
-        <!-- Pagination -->
         <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5" data-aos="fade-up">
             <ul class="pagination">
                 {% if page_obj.has_previous %}
