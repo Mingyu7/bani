@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from users.models import User
 from .utils import product_image_upload_path
-from PIL import Image
+from PIL import Image, ImageOps
 from django.core.files.base import ContentFile
 import io
 
@@ -23,6 +23,7 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if self.image:
             img = Image.open(self.image)
+            img = ImageOps.exif_transpose(img)  # Correct orientation
             # Resize image if it's too large
             if img.height > 1024 or img.width > 1024:
                 output_size = (1024, 1024)
