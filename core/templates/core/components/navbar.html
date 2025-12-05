@@ -12,12 +12,12 @@
                             <span class="navbar-text text-light">환영합니다, {{ user.nickname }}님!</span>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="btn btn-outline-light btn-sm" href="{% url 'mypage:mypage' %}" role="button">마이페이지</a>
+                            <a class="btn btn-outline-light btn-sm" href="{% url 'mypage:mypage' %}" role="button"><i class="bi bi-person-circle"></i></a>
                         </li>
                         <li class="nav-item">
                             <form action="{% url 'logout' %}" method="post" class="d-inline">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-outline-light btn-sm">로그아웃</button>
+                                <button type="submit" class="btn btn-outline-light btn-sm"><i class="bi bi-box-arrow-right"></i> </button>
                             </form>
                         </li>
                     {% else %}

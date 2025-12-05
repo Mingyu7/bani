@@ -8,11 +8,13 @@
     <div class="card">
         <div class="row g-0">
             <div class="col-md-6">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.title }}">
-                {% else %}
-                    <img src="https://via.placeholder.com/600x400.png?text=No+Image" class="img-fluid rounded-start" alt="No Image">
-                {% endif %}
+                <div class="product-image-container">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.title }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/600x400.png?text=No+Image" class="img-fluid rounded-start" alt="No Image">
+                    {% endif %}
+                </div>
             </div>
             <div class="col-md-6 d-flex flex-column">
                 <div class="card-body">

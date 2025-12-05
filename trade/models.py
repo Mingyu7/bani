@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.db import models
 from users.models import User
-from .utils import product_image_upload_path # Import the custom upload path function
+from .utils import product_image_upload_path
+from PIL import Image
+from django.core.files.base import ContentFile
+import io
 
 class Product(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -16,3 +19,22 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            img = Image.open(self.image)
+            # Resize image if it's too large
+            if img.height > 1024 or img.width > 1024:
+                output_size = (1024, 1024)
+                img.thumbnail(output_size)
+
+            # Save the image to a BytesIO object
+            img_io = io.BytesIO()
+            img_format = 'JPEG' if self.image.name.lower().endswith('jpg') or self.image.name.lower().endswith('jpeg') else 'PNG'
+            img.save(img_io, format=img_format, quality=85, optimize=True)
+            
+            # Create a new Django file-like object
+            new_image = ContentFile(img_io.getvalue(), name=self.image.name)
+            self.image = new_image
+
+        super().save(*args, **kwargs)

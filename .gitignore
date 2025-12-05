@@ -19,6 +19,7 @@ var/
 .venv
 venv/
 env/
+bani_project/
 
 # Django stuff:
 *.log
