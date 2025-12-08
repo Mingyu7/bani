@@ -175,8 +175,6 @@ LOGOUT_REDIRECT_URL = '/'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-# NewsAPI Key
-NEWS_API_KEY = '2b453fc3bf494cd9a619b6e59af055c1'
 
 # Email settings for password reset (development only)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
